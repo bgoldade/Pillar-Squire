@@ -131,7 +131,7 @@ onClose();
 };
 
 return (
-<Modal visible={visible} animationType=`slide` presentationStyle=`pageSheet` onRequestClose={onClose}>
+<Modal visible={visible} animationType={`slide`} presentationStyle={`pageSheet`} onRequestClose={onClose}>
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <View style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,padding:18,borderBottomWidth:1,borderBottomColor:C.borderGold}}>
 <Text style={{fontSize:16,fontWeight:`700`,color:C.textPrimary,fontFamily:FONT}}>Add Club</Text>
@@ -145,7 +145,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 </TouchableOpacity>
 ))}
 </View>
-<ScrollView contentContainerStyle={{padding:16}} keyboardShouldPersistTaps=`handled`>
+<ScrollView contentContainerStyle={{padding:16}} keyboardShouldPersistTaps={`handled`}>
 {tab===`preset`&&(
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:`center`,marginTop:24}}>All standard clubs already in bag.</Text>
@@ -172,7 +172,7 @@ style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,p
 <View style={{gap:12}}>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CLUB NAME</Text>
-<TextInput value={customName} onChangeText={setCustomName} placeholder=`e.g. 2 Iron` placeholderTextColor={C.textMuted} style={s.input}/>
+<TextInput value={customName} onChangeText={setCustomName} placeholder={`e.g. 2 Iron`} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CATEGORY</Text>
@@ -187,12 +187,12 @@ style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,bord
 </View>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CARRY DISTANCE (YDS)</Text>
-<TextInput value={customDist} onChangeText={setCustomDist} keyboardType=`number-pad` placeholder=`150` placeholderTextColor={C.textMuted} style={s.input}/>
+<TextInput value={customDist} onChangeText={setCustomDist} keyboardType={`number-pad`} placeholder={`150`} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
 {customCat===`wedge`&&(
 <View>
 <Text style={[s.label,{marginBottom:6}]}>LOFT (OPTIONAL)</Text>
-<TextInput value={customLoft} onChangeText={setCustomLoft} keyboardType=`number-pad` placeholder=`e.g. 52` placeholderTextColor={C.textMuted} style={s.input}/>
+<TextInput value={customLoft} onChangeText={setCustomLoft} keyboardType={`number-pad`} placeholder={`e.g. 52`} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
 )}
 <TouchableOpacity onPress={addCustom} style={[s.goldBtn,{marginTop:4,opacity:customName.trim()&&customDist?1:0.4}]}>
@@ -253,9 +253,9 @@ onComplete({name:name.trim(),handicap:noHcp?null:parseFloat(hcpInput),homeCourse
 // ── Step 1 ──────────────────────────────────────────────────────────────────
 if (step===1) return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle=`light-content`/>
+<StatusBar barStyle={`light-content`}/>
 <Progress/>
-<ScrollView contentContainerStyle={{padding:24,paddingTop:40}} keyboardShouldPersistTaps=`handled`>
+<ScrollView contentContainerStyle={{padding:24,paddingTop:40}} keyboardShouldPersistTaps={`handled`}>
 <View style={{alignItems:`center`,marginBottom:40}}>
 <View style={{flexDirection:`row`,alignItems:`baseline`,gap:8}}>
 <Text style={{fontSize:28,fontWeight:`700`,letterSpacing:3,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
@@ -269,13 +269,13 @@ if (step===1) return (
 
 ```
     <Text style={[s.label,{marginBottom:8}]}>YOUR NAME</Text>
-    <TextInput value={name} onChangeText={setName} placeholder=`First name or nickname` placeholderTextColor={C.textMuted}
+    <TextInput value={name} onChangeText={setName} placeholder={`First name or nickname`} placeholderTextColor={C.textMuted}
       style={[s.input,{marginBottom:20,borderColor:name.length>=2?C.borderGold:C.borderGreen}]}/>
 
     <Text style={[s.label,{marginBottom:8}]}>HANDICAP INDEX</Text>
     <View style={{flexDirection:`row`,gap:8,marginBottom:8}}>
-      <TextInput value={hcpInput} onChangeText={t=>{setHcpInput(t);setNoHcp(false);}} placeholder=`e.g. 8.4`
-        placeholderTextColor={C.textMuted} keyboardType=`decimal-pad` editable={!noHcp}
+      <TextInput value={hcpInput} onChangeText={t=>{setHcpInput(t);setNoHcp(false);}} placeholder={`e.g. 8.4`}
+        placeholderTextColor={C.textMuted} keyboardType={`decimal-pad`} editable={!noHcp}
         style={[s.input,{flex:1,opacity:noHcp?0.4:1,borderColor:hcpInput&&!noHcp?C.borderGold:C.borderGreen}]}/>
       <TouchableOpacity onPress={()=>{setNoHcp(n=>!n);setHcpInput(EMPTY);}}
         style={{borderRadius:10,borderWidth:1,borderColor:noHcp?C.gold:C.borderSub,backgroundColor:noHcp?C.goldFaint:`transparent`,paddingHorizontal:14,justifyContent:`center`}}>
@@ -286,7 +286,7 @@ if (step===1) return (
 
     <Text style={[s.label,{marginBottom:8}]}>HOME COURSE <Text style={{color:C.borderSub}}>· OPTIONAL</Text></Text>
     <TextInput value={courseSearch} onChangeText={t=>{setCourseSearch(t);setShowCourseList(true);}} onFocus={()=>setShowCourseList(true)}
-      placeholder=`Search your course` placeholderTextColor={C.textMuted}
+      placeholder={`Search your course`} placeholderTextColor={C.textMuted}
       style={[s.input,{marginBottom:4,borderColor:homeCourse?C.borderGold:C.borderGreen}]}/>
     {homeCourse&&!showCourseList&&<Text style={{fontSize:11,color:C.gold,marginBottom:16,fontFamily:FONT}}>✓ {homeCourse.name}</Text>}
     {showCourseList&&filteredCourses.length>0&&(
@@ -312,10 +312,10 @@ if (step===1) return (
 // ── Step 2 ──────────────────────────────────────────────────────────────────
 if (step===2) return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle=`light-content`/>
+<StatusBar barStyle={`light-content`}/>
 <Progress/>
 <AddClubModal visible={showAddModal} onClose={()=>setShowAddModal(false)} onAdd={addClub} existingClubs={bagClubs}/>
-<ScrollView contentContainerStyle={{padding:24,paddingTop:32}} keyboardShouldPersistTaps=`handled`>
+<ScrollView contentContainerStyle={{padding:24,paddingTop:32}} keyboardShouldPersistTaps={`handled`}>
 <Text style={{fontSize:10,color:C.gold,letterSpacing:2,marginBottom:4,fontFamily:FONT}}>STEP 2 OF 3</Text>
 <Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Your bag.</Text>
 <Text style={{fontSize:13,color:C.textMuted,lineHeight:20,marginBottom:20,fontFamily:FONT,fontStyle:`italic`}}>
@@ -330,7 +330,7 @@ Scaled for a {noHcp?`typical`:hcp.toFixed(1)} handicap. Tap − to remove clubs 
 // ── Step 3 ──────────────────────────────────────────────────────────────────
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle=`light-content`/>
+<StatusBar barStyle={`light-content`}/>
 <Progress/>
 <ScrollView contentContainerStyle={{padding:24,paddingTop:40}}>
 <View style={{alignItems:`center`,marginBottom:32}}>
@@ -593,7 +593,7 @@ if (activeTab===`Squire`)    return <SquireTab/>;
 
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle=`light-content`/>
+<StatusBar barStyle={`light-content`}/>
 <View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,backgroundColor:`rgba(6,13,9,0.97)`}}>
 <View>
 <View style={{flexDirection:`row`,alignItems:`baseline`,gap:6}}>
