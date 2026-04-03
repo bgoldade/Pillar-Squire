@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import {
-View, Text, ScrollView, TouchableOpacity, TextInput,
-StatusBar, SafeAreaView, StyleSheet, Modal, Dimensions,
-} from "react-native";
-
-const { width: SW } = Dimensions.get(“window”);
+const React = require(`react`);
+const { useState } = React;
+const RN = require(`react-native`);
+const { View, Text, ScrollView, TouchableOpacity, TextInput,
+StatusBar, SafeAreaView, StyleSheet, Modal } = RN;
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const C = {
