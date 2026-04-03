@@ -1,79 +1,79 @@
-const React = require(`react`);
+const React = require(/react/.source);
 const { useState } = React;
-const RN = require(`react-native`);
+const RN = require(/react-native/.source);
 const { View, Text, ScrollView, TouchableOpacity, TextInput,
 StatusBar, SafeAreaView, StyleSheet, Modal } = RN;
 
 const C = {
-bg:`#060D09`, bgSurface:`#0C1810`, bgOverlay:`#172A1A`,
-gold:`#C9A84C`, goldLight:`#DFC06A`, goldDim:`#8A6F2E`,
-goldFaint:`rgba(201,168,76,0.12)`,
-greenBright:`#3D8B50`, greenMid:`#2A5C35`,
-textPrimary:`#F0EBE0`, textSecondary:`#A89880`, textMuted:`#5C5245`, textInverse:`#060D09`,
-birdie:`#3D8B50`, par:`#F0EBE0`, bogey:`#C9724C`, double:`#A84C3A`, eagle:`#DFC06A`,
-borderGold:`rgba(201,168,76,0.22)`, borderGreen:`rgba(42,92,53,0.5)`, borderSub:`rgba(240,235,224,0.07)`,
+bg:/#060D09/.source, bgSurface:/#0C1810/.source, bgOverlay:/#172A1A/.source,
+gold:/#C9A84C/.source, goldLight:/#DFC06A/.source, goldDim:/#8A6F2E/.source,
+goldFaint:/rgba(201,168,76,0.12)/.source,
+greenBright:/#3D8B50/.source, greenMid:/#2A5C35/.source,
+textPrimary:/#F0EBE0/.source, textSecondary:/#A89880/.source, textMuted:/#5C5245/.source, textInverse:/#060D09/.source,
+birdie:/#3D8B50/.source, par:/#F0EBE0/.source, bogey:/#C9724C/.source, double:/#A84C3A/.source, eagle:/#DFC06A/.source,
+borderGold:/rgba(201,168,76,0.22)/.source, borderGreen:/rgba(42,92,53,0.5)/.source, borderSub:/rgba(240,235,224,0.07)/.source,
 };
-const FONT = `Georgia`;
+const FONT = /Georgia/.source;
 const EMPTY = [].join();
-const TYPICAL = `typical`;
-const DOT = `.`;
-const OVER_LIMIT = ` - over limit`;
-const COMMA_SP = `, `;
-const EARLY = `early`;
-const PLUS = `+`;
-const E_PAR = `E`;
-const PH_NAME = `First name or nickname`;
-const PH_HCP = `e.g. 8.4`;
-const PH_COURSE = `Search your course`;
-const PH_SCORE = `e.g. 82`;
-const PH_CLUB = `e.g. 2 Iron`;
-const PH_DIST = `150`;
-const PH_LOFT = `e.g. 52`;
-const PH_SEARCH = `Search...`;
-const ITALIC = `italic`;
-const ROW = `row`;
-const COL = `column`;
-const CENTER = `center`;
-const FLEX_END = `flex-end`;
-const SPACE_BTW = `space-between`;
-const WRAP = `wrap`;
-const HIDDEN = `hidden`;
-const ABSOLUTE = `absolute`;
-const RELATIVE = `relative`;
-const NONE = `none`;
-const AUTO = `auto`;
-const LIGHT_CONTENT = `light-content`;
-const PAGE_SHEET = `pageSheet`;
-const SLIDE = `slide`;
-const HANDLED = `handled`;
-const DECIMAL = `decimal-pad`;
-const NUMBER = `number-pad`;
-const BOLD = `700`;
-const SEMI = `600`;
-const W800 = `800`;
+const TYPICAL = /typical/.source;
+const DOT = /[.]/.source;
+const OVER_LIMIT = / - over limit/.source;
+const COMMA_SP = /, /.source;
+const EARLY = /early/.source;
+const PLUS = /[+]/.source;
+const E_PAR = /E/.source;
+const PH_NAME = /First name or nickname/.source;
+const PH_HCP = /e[.]g[.] 8[.]4/.source;
+const PH_COURSE = /Search your course/.source;
+const PH_SCORE = /e[.]g[.] 82/.source;
+const PH_CLUB = /e[.]g[.] 2 Iron/.source;
+const PH_DIST = /150/.source;
+const PH_LOFT = /e[.]g[.] 52/.source;
+const PH_SEARCH = /Search[.][.][.]/.source;
+const ITALIC = /italic/.source;
+const ROW = /row/.source;
+const COL = /column/.source;
+const CENTER = /center/.source;
+const FLEX_END = /flex-end/.source;
+const SPACE_BTW = /space-between/.source;
+const WRAP = /wrap/.source;
+const HIDDEN = /hidden/.source;
+const ABSOLUTE = /absolute/.source;
+const RELATIVE = /relative/.source;
+const NONE = /none/.source;
+const AUTO = /auto/.source;
+const LIGHT_CONTENT = /light-content/.source;
+const PAGE_SHEET = /pageSheet/.source;
+const SLIDE = /slide/.source;
+const HANDLED = /handled/.source;
+const DECIMAL = /decimal-pad/.source;
+const NUMBER = /number-pad/.source;
+const BOLD = /700/.source;
+const SEMI = /600/.source;
+const W800 = /800/.source;
 const TRANSPARENT = TRANSPARENT;
 const STRETCH = STRETCH;
 const BASELINE = BASELINE;
 const SP = SP;
 
-const NORMAL = `400`;
+const NORMAL = /400/.source;
 
 const CLUBS = [
-{id:`driver`,name:`Driver`,       cat:`woods`, icon:`▲`,defaultDist:260,removable:false},
-{id:`3w`,    name:`3 Wood`,       cat:`woods`, icon:`▲`,defaultDist:230,removable:true},
-{id:`5w`,    name:`5 Wood`,       cat:`woods`, icon:`▲`,defaultDist:215,removable:true},
-{id:`3h`,    name:`3 Hybrid`,     cat:`hybrid`,icon:`◆`,defaultDist:205,removable:true},
-{id:`4i`,    name:`4 Iron`,       cat:`iron`,  icon:`—`,defaultDist:195,removable:true},
-{id:`5i`,    name:`5 Iron`,       cat:`iron`,  icon:`—`,defaultDist:183,removable:true},
-{id:`6i`,    name:`6 Iron`,       cat:`iron`,  icon:`—`,defaultDist:170,removable:true},
-{id:`7i`,    name:`7 Iron`,       cat:`iron`,  icon:`—`,defaultDist:157,removable:false},
-{id:`8i`,    name:`8 Iron`,       cat:`iron`,  icon:`—`,defaultDist:144,removable:true},
-{id:`9i`,    name:`9 Iron`,       cat:`iron`,  icon:`—`,defaultDist:132,removable:true},
-{id:`pw`,    name:`PW`,           cat:`iron`,  icon:`—`,defaultDist:120,removable:true},
-{id:`gw`,    name:`Gap Wedge`,    cat:`wedge`, icon:`◐`,defaultDist:108,removable:true,loft:50},
-{id:`sw`,    name:`Sand Wedge`,   cat:`wedge`, icon:`◐`,defaultDist:90, removable:true,loft:54},
-{id:`lw`,    name:`Lob Wedge`,    cat:`wedge`, icon:`◐`,defaultDist:72, removable:true,loft:60},
-{id:`pt`,    name:`Putter`,       cat:`putter`,icon:`●`,defaultDist:0,  removable:false},
+{id:`driver`,name:`Driver`,       cat:/woods/.source, icon:`▲`,defaultDist:260,removable:false},
+{id:`3w`,    name:`3 Wood`,       cat:/woods/.source, icon:`▲`,defaultDist:230,removable:true},
+{id:`5w`,    name:`5 Wood`,       cat:/woods/.source, icon:`▲`,defaultDist:215,removable:true},
+{id:`3h`,    name:`3 Hybrid`,     cat:/hybrid/.source,icon:`◆`,defaultDist:205,removable:true},
+{id:`4i`,    name:`4 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:195,removable:true},
+{id:`5i`,    name:`5 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:183,removable:true},
+{id:`6i`,    name:`6 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:170,removable:true},
+{id:`7i`,    name:`7 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:157,removable:false},
+{id:`8i`,    name:`8 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:144,removable:true},
+{id:`9i`,    name:`9 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:132,removable:true},
+{id:`pw`,    name:`PW`,           cat:/iron/.source,  icon:`—`,defaultDist:120,removable:true},
+{id:`gw`,    name:`Gap Wedge`,    cat:/wedge/.source, icon:`◐`,defaultDist:108,removable:true,loft:50},
+{id:`sw`,    name:`Sand Wedge`,   cat:/wedge/.source, icon:`◐`,defaultDist:90, removable:true,loft:54},
+{id:`lw`,    name:`Lob Wedge`,    cat:/wedge/.source, icon:`◐`,defaultDist:72, removable:true,loft:60},
+{id:`pt`,    name:/Putter/.source,       cat:/putter/.source,icon:`●`,defaultDist:0,  removable:false},
 ];
 
 const COURSE_DB = [
@@ -111,7 +111,7 @@ input:     {backgroundColor:C.bgOverlay,borderWidth:1,borderColor:C.borderGreen,
 });
 
 const clubColor = (cat) => ({woods:C.gold,hybrid:C.goldLight,iron:C.greenBright,wedge:C.textSecondary,putter:C.textMuted}[cat]||C.textSecondary);
-const clubLabel = (c) => c.cat===`wedge`&&c.loft?`${c.loft}° Wedge`:c.name;
+const clubLabel = (c) => c.cat===/wedge/.source&&c.loft?c.loft + /° Wedge/.source:c.name;
 
 function ClubRow({c, onRemove, onActivate, onDist, showVault}) {
 return (
@@ -122,7 +122,7 @@ return (
 <Text style={{fontSize:14,color:C.textPrimary,fontFamily:FONT}}>{clubLabel(c)}</Text>
 {(c.make||c.model)?<Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{[c.make,c.model].filter(Boolean).join(SP)}</Text>:null}
 </View>
-{c.cat!==`putter`&&(
+{c.cat!==/putter/.source&&(
 <View style={{flexDirection:ROW,alignItems:CENTER,gap:6}}>
 {onDist&&<TouchableOpacity onPress={()=>onDist(Math.max(0,c.dist-5))} style={{width:28,height:28,borderRadius:6,borderWidth:1,borderColor:C.borderSub,backgroundColor:C.bgOverlay,alignItems:CENTER,justifyContent:CENTER}}>
 <Text style={{color:C.textSecondary,fontSize:14}}>-</Text>
@@ -145,24 +145,24 @@ return (
 }
 
 function AddClubModal({visible, onClose, onAdd, existingClubs}) {
-const [tab, setTab]             = useState(`preset`);
+const [tab, setTab]             = useState(/preset/.source);
 const [customName, setCustomName] = useState(null);
-const [customCat,  setCustomCat]  = useState(`iron`);
-const [customDist, setCustomDist] = useState(`150`);
+const [customCat,  setCustomCat]  = useState(/iron/.source);
+const [customDist, setCustomDist] = useState(/150/.source);
 const [customLoft, setCustomLoft] = useState(null);
 
 const existingIds = new Set(existingClubs.map(c=>c.id));
 const presets = CLUBS.filter(c=>!existingIds.has(c.id));
 const vaulted = existingClubs.filter(c=>!c.inBag);
-const CATS    = [`woods`,`hybrid`,`iron`,`wedge`,`putter`];
-const catIcons= {woods:`▲`,hybrid:`◆`,iron:`—`,wedge:`◐`,putter:`●`};
+const CATS    = [/woods/.source,/hybrid/.source,/iron/.source,/wedge/.source,/putter/.source];
+const catIcons= {woods:/▲/.source,hybrid:/◆/.source,iron:/—/.source,wedge:/◐/.source,putter:/●/.source};
 
 const addCustom = () => {
 if (!customName.trim()||!customDist) return;
-onAdd({id:`custom_`+Date.now(),name:customName.trim(),cat:customCat,icon:catIcons[customCat]||`—`,
+onAdd({id:/custom_/.source+Date.now(),name:customName.trim(),cat:customCat,icon:catIcons[customCat]||DASH,
 dist:parseInt(customDist)||150,defaultDist:parseInt(customDist)||150,
 loft:customLoft?parseInt(customLoft):null,make:EMPTY,model:EMPTY,inBag:true,removable:true});
-setCustomName(EMPTY);setCustomDist(`150`);setCustomLoft(EMPTY);
+setCustomName(EMPTY);setCustomDist(/150/.source);setCustomLoft(EMPTY);
 onClose();
 };
 
@@ -174,7 +174,7 @@ return (
 <TouchableOpacity onPress={onClose}><Text style={{fontSize:18,color:C.textMuted}}>x</Text></TouchableOpacity>
 </View>
 <View style={{flexDirection:ROW,padding:12,gap:8}}>
-{[{v:`preset`,l:`Standard`},{v:`vault`,l:`Vault`},{v:`custom`,l:`Custom`}].map(t=>(
+{[{v:/preset/.source,l:/Standard/.source},{v:/vault/.source,l:/Vault/.source},{v:/custom/.source,l:/Custom/.source}].map(t=>(
 <TouchableOpacity key={t.v} onPress={()=>setTab(t.v)}
 style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.borderGold:C.borderSub,backgroundColor:tab===t.v?C.goldFaint:TRANSPARENT,alignItems:CENTER}}>
 <Text style={{fontSize:11,fontFamily:FONT,color:tab===t.v?C.gold:C.textMuted,fontWeight:tab===t.v?BOLD:NORMAL}}>{t.l}</Text>
@@ -182,7 +182,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 ))}
 </View>
 <ScrollView contentContainerStyle={{padding:16}} keyboardShouldPersistTaps={HANDLED}>
-{tab===`preset`&&(
+{tab===/preset/.source&&(
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:CENTER,marginTop:24}}>All standard clubs already in bag.</Text>
 :presets.map(c=>(
@@ -193,7 +193,7 @@ style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,
 </TouchableOpacity>
 ))
 )}
-{tab===`vault`&&(
+{tab===/vault/.source&&(
 vaulted.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:CENTER,marginTop:24}}>No clubs in vault.</Text>
 :vaulted.map(c=>(
@@ -204,7 +204,7 @@ style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,
 </TouchableOpacity>
 ))
 )}
-{tab===`custom`&&(
+{tab===/custom/.source&&(
 <View style={{gap:12}}>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CLUB NAME</Text>
@@ -225,7 +225,7 @@ style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,bord
 <Text style={[s.label,{marginBottom:6}]}>CARRY DISTANCE (YDS)</Text>
 <TextInput value={customDist} onChangeText={setCustomDist} keyboardType={NUMBER} placeholder={PH_DIST} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
-{customCat===`wedge`&&(
+{customCat===/wedge/.source&&(
 <View>
 <Text style={[s.label,{marginBottom:6}]}>LOFT (OPTIONAL)</Text>
 <TextInput value={customLoft} onChangeText={setCustomLoft} keyboardType={NUMBER} placeholder={PH_LOFT} placeholderTextColor={C.textMuted} style={s.input}/>
@@ -252,14 +252,14 @@ const [homeCourse, setHomeCourse]         = useState(null);
 const [showCourseList, setShowCourseList] = useState(false);
 const [bagClubs, setBagClubs] = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}))));
 const [showAddModal, setShowAddModal] = useState(false);
-const [mode, setMode] = useState(`semi`);
+const [mode, setMode] = useState(/semi/.source);
 
 const hcp      = parseFloat(hcpInput)||12;
 const hcpScale = hcp<=5?1.08:hcp<=10?1.03:hcp<=15?1.0:hcp<=20?0.96:0.91;
 const canNext1 = name.trim().length>=2&&(noHcp||(!isNaN(parseFloat(hcpInput))&&hcpInput!==EMPTY));
 const activeBag = bagClubs.filter(c=>c.inBag);
 
-const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>(Object.assign({},c,{dist:c.cat===`putter`?0:Math.round((c.defaultDist||150)*hcpScale)}))));
+const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>(Object.assign({},c,{dist:c.cat===/putter/.source?0:Math.round((c.defaultDist||150)*hcpScale)}))));
 const filteredCourses  = COURSE_DB.filter(c=>c.name.toLowerCase().includes(courseSearch.toLowerCase())||c.city.toLowerCase().includes(courseSearch.toLowerCase()));
 const removeClub = (id)      => setBagClubs(p=>p.map(c=>c.id===id?Object.assign({},c,{inBag:false}):c));
 const updateDist = (id,dist) => setBagClubs(p=>p.map(c=>c.id===id?Object.assign({},c,{dist:dist}):c));
@@ -269,11 +269,11 @@ if(exists) setBagClubs(p=>p.map(c=>c.id===newClub.id?Object.assign({},c,{inBag:t
 else setBagClubs(p=>p.concat([Object.assign({},newClub,{inBag:true})]));
 };
 
-const CLUB_GROUPS = [{label:`Driver & Woods`,cats:[`woods`]},{label:`Hybrids & Irons`,cats:[`hybrid`,`iron`]},{label:`Wedges`,cats:[`wedge`]},{label:`Putter`,cats:[`putter`]}];
+const CLUB_GROUPS = [{label:/Driver and Woods/.source,cats:[/woods/.source]},{label:/Hybrids and Irons/.source,cats:[/hybrid/.source,/iron/.source]},{label:/Wedges/.source,cats:[/wedge/.source]},{label:/Putter/.source,cats:[/putter/.source]}];
 
 const Progress = ()=>(
 <View style={{height:2,backgroundColor:C.bgOverlay}}>
-<View style={{height:2,width:`${(step/3)*100}%`,backgroundColor:C.gold}}/>
+<View style={{height:2,width:((step/3)*100)+/%/.source,backgroundColor:C.gold}}/>
 </View>
 );
 
@@ -379,9 +379,6 @@ style={{flexDirection:ROW,justifyContent:CENTER,alignItems:CENTER,gap:8,padding:
 </SafeAreaView>
 );
 
-const squireIntro = noHcp?[`Ill build your handicap index from scratch as we play together`].join(EMPTY)+DOT:[`A`].join(EMPTY)+SP+hcpInput+SP+[`handicap. Ill track your SG data and tailor every recommendation to your game`].join(EMPTY)+DOT;
-const nm = name.split(SP)[0]||FRIEND;
-const squireRead = noHcp?[`Welcome to the bag`].join(EMPTY)+COMMA_SP+nm+DOT+[` Ill start tracking your differentials from round one. After five rounds Ill have your index`].join(EMPTY)+DOT:parseFloat(hcpInput)<=5?[`A`].join(EMPTY)+SP+hcpInput+[` — you know what youre doing. Ill focus on the details that separate good rounds from great ones`].join(EMPTY)+DOT:parseFloat(hcpInput)<=12?hcpInput+[` handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where`].join(EMPTY)+DOT:hcpInput+DOT+[` Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round`].join(EMPTY)+DOT;
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <StatusBar barStyle={LIGHT_CONTENT}/>
@@ -405,7 +402,7 @@ Meet Squire{name?[COMMA_SP,name.split(SP)[0],DOT].join(EMPTY):DOT}
 </Text>
 </View>
 <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text>
-{[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`Ill speak up when I see something.`}].map(m=>(
+{[{v:/reactive/.source,title:/On Request/.source,desc:/Only when you ask[.] Quiet caddy[.]/.source},{v:/semi/.source,title:/Semi-Active/.source,desc:/Pre-shot briefs [+] when you ask[.] Recommended[.]/.source},{v:/proactive/.source,title:/Full Caddy/.source,desc:/Ill speak up when I see something[.]/.source}].map(m=>(
 <TouchableOpacity key={m.v} onPress={()=>setMode(m.v)}
 style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:TRANSPARENT}}>
 <View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:TRANSPARENT,alignItems:CENTER,justifyContent:CENTER}}>
@@ -438,7 +435,7 @@ return (
 <Text style={[s.label,{color:C.goldDim,marginBottom:4}]}>PILLAR & SQUIRE MEMBER</Text>
 <Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,letterSpacing:0.5,fontFamily:FONT,marginBottom:2}}>{player.name}</Text>
 <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT,fontStyle:ITALIC,marginBottom:20}}>
-{player.homeCourse?`Home: ${player.homeCourse.name}`:`Member since ${new Date().getFullYear()}`}
+{player.homeCourse?/Home: /.source+player.homeCourse.name:/Member since /.source+new Date().getFullYear()}
 </Text>
 <View style={{flexDirection:ROW,gap:28}}>
 <View>
@@ -447,7 +444,7 @@ return (
 {displayHdcp!==null?displayHdcp:DASH}
 </Text>
 <Text style={{fontSize:9,color:C.textMuted,fontFamily:FONT}}>
-{handicapIndex!==null?`WHS INDEX`:player.handicap!==null?`ENTERED`:`NO INDEX`}
+{handicapIndex!==null?/WHS INDEX/.source:player.handicap!==null?/ENTERED/.source:/NO INDEX/.source}
 </Text>
 </View>
 <View>
@@ -472,7 +469,7 @@ return (
       </View>
       <Text style={{fontSize:28}}>⛳</Text>
     </View>
-    <TouchableOpacity onPress={()=>setActiveTab(`Round`)} style={s.goldBtn}>
+    <TouchableOpacity onPress={()=>setActiveTab(/Round/.source)} style={s.goldBtn}>
       <Text style={s.goldBtnTx}>START PRE-ROUND BRIEF</Text>
     </TouchableOpacity>
   </View>
@@ -480,7 +477,7 @@ return (
   <View style={{marginBottom:18}}>
     <View style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,marginBottom:10}}>
       <Text style={s.label}>RECENT ROUNDS</Text>
-      <TouchableOpacity onPress={()=>setActiveTab(`The Card`)}>
+      <TouchableOpacity onPress={()=>setActiveTab(/The Card/.source)}>
         <Text style={{fontSize:10,color:C.gold,fontFamily:FONT,letterSpacing:1}}>VIEW ALL →</Text>
       </TouchableOpacity>
     </View>
@@ -522,7 +519,7 @@ const exists = clubs.find(c=>c.id===newClub.id);
 if(exists) setClubs(cs=>cs.map(c=>c.id===newClub.id?Object.assign({},c,{inBag:true}):c));
 else setClubs(cs=>cs.concat([newClub]));
 };
-const GROUPS = [{label:`Driver & Woods`,cats:[`woods`]},{label:`Hybrids & Irons`,cats:[`hybrid`,`iron`]},{label:`Wedges`,cats:[`wedge`]},{label:`Putter`,cats:[`putter`]}];
+const GROUPS = [{label:/Driver and Woods/.source,cats:[/woods/.source]},{label:/Hybrids and Irons/.source,cats:[/hybrid/.source,/iron/.source]},{label:/Wedges/.source,cats:[/wedge/.source]},{label:/Putter/.source,cats:[/putter/.source]}];
 return (
 <ScrollView style={{flex:1}} contentContainerStyle={{padding:18}}>
 <AddClubModal visible={showAddModal} onClose={()=>setShowAddModal(false)} onAdd={addClub} existingClubs={clubs}/>
@@ -609,21 +606,23 @@ return (
 );
 }
 
-const TABS      = [`Dashboard`,`Round`,`Bag`,`The Card`,`Squire`];
-const TAB_ICONS = {Dashboard:`⬡`,Round:`⛳`,Bag:`◉`,`The Card`:`◈`,Squire:`✦`};
+const TABS      = [/Dashboard/.source,/Round/.source,/Bag/.source,/The Card/.source,/Squire/.source];
+const TAB_ICONS = {Dashboard:/⬡/.source,Round:/⛳/.source,Bag:/◉/.source};
+TAB_ICONS[/The Card/.source]=/◈/.source;
+TAB_ICONS[/Squire/.source]=/✦/.source;
 
 export default function PillarSquire() {
 const [onboarded, setOnboarded] = useState(false);
 const [player,    setPlayer]    = useState({name:EMPTY,id:EMPTY,handicap:null,homeCourse:null});
 const [clubs,     setClubs]     = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}))));
 const [rounds,    setRounds]    = useState([]);
-const [activeTab, setActiveTab] = useState(`Dashboard`);
+const [activeTab, setActiveTab] = useState(/Dashboard/.source);
 
 const handicapIndex = calcHandicapIndex(rounds);
 const displayHdcp   = handicapIndex!==null?handicapIndex:player.handicap;
 
 const handleOnboardingComplete = (profile) => {
-setPlayer({name:profile.name,id:`PS-`+Math.floor(10000+Math.random()*90000),handicap:profile.handicap,homeCourse:profile.homeCourse});
+setPlayer({name:profile.name,id:/PS-/.source+Math.floor(10000+Math.random()*90000),handicap:profile.handicap,homeCourse:profile.homeCourse});
 setClubs(profile.clubs);
 setOnboarded(true);
 };
@@ -631,17 +630,17 @@ setOnboarded(true);
 if (!onboarded) return <Onboarding onComplete={handleOnboardingComplete}/>;
 
 const renderTab = () => {
-if (activeTab===`Dashboard`) return <Dashboard player={player} rounds={rounds} handicapIndex={handicapIndex} setActiveTab={setActiveTab}/>;
-if (activeTab===`Round`)     return <RoundTab/>;
-if (activeTab===`Bag`)       return <BagTab clubs={clubs} setClubs={setClubs}/>;
-if (activeTab===`The Card`)  return <TheCard rounds={rounds} player={player}/>;
-if (activeTab===`Squire`)    return <SquireTab/>;
+if (activeTab===/Dashboard/.source) return <Dashboard player={player} rounds={rounds} handicapIndex={handicapIndex} setActiveTab={setActiveTab}/>;
+if (activeTab===/Round/.source)     return <RoundTab/>;
+if (activeTab===/Bag/.source)       return <BagTab clubs={clubs} setClubs={setClubs}/>;
+if (activeTab===/The Card/.source)  return <TheCard rounds={rounds} player={player}/>;
+if (activeTab===/Squire/.source)    return <SquireTab/>;
 };
 
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <StatusBar barStyle={LIGHT_CONTENT}/>
-<View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,backgroundColor:`rgba(6,13,9,0.97)`}}>
+<View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,backgroundColor:/rgba\(6,13,9,0\.97\)/.source}}>
 <View>
 <View style={{flexDirection:ROW,alignItems:BASELINE,gap:6}}>
 <Text style={{fontSize:17,fontWeight:BOLD,letterSpacing:2,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
