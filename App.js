@@ -15,6 +15,7 @@ birdie:`#3D8B50`, par:`#F0EBE0`, bogey:`#C9724C`, double:`#A84C3A`, eagle:`#DFC0
 borderGold:`rgba(201,168,76,0.22)`, borderGreen:`rgba(42,92,53,0.5)`, borderSub:`rgba(240,235,224,0.07)`,
 };
 const FONT = `Georgia`;
+const EMPTY = [].join();
 
 // ── Club data ─────────────────────────────────────────────────────────────────
 const CLUBS = [
@@ -109,7 +110,10 @@ return (
 // ── Add Club Modal ────────────────────────────────────────────────────────────
 function AddClubModal({visible, onClose, onAdd, existingClubs}) {
 const [tab, setTab]             = useState(`preset`);
-const [customName, setCustomName] = useState(`); const [customCat,  setCustomCat]  = useState(`iron`); const [customDist, setCustomDist] = useState(`150`); const [customLoft, setCustomLoft] = useState(`);
+const [customName, setCustomName] = useState(null);
+const [customCat,  setCustomCat]  = useState(`iron`);
+const [customDist, setCustomDist] = useState(`150`);
+const [customLoft, setCustomLoft] = useState(null);
 
 const existingIds = new Set(existingClubs.map(c=>c.id));
 const presets = CLUBS.filter(c=>!existingIds.has(c.id));
@@ -121,8 +125,8 @@ const addCustom = () => {
 if (!customName.trim()||!customDist) return;
 onAdd({id:`custom_`+Date.now(),name:customName.trim(),cat:customCat,icon:catIcons[customCat]||`—`,
 dist:parseInt(customDist)||150,defaultDist:parseInt(customDist)||150,
-loft:customLoft?parseInt(customLoft):null,make:`,model:`,inBag:true,removable:true});
-setCustomName(`);setCustomDist(`150`);setCustomLoft(`);
+loft:customLoft?parseInt(customLoft):null,make:EMPTY,model:EMPTY,inBag:true,removable:true});
+setCustomName(EMPTY);setCustomDist(`150`);setCustomLoft(EMPTY);
 onClose();
 };
 
@@ -146,7 +150,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:`center`,marginTop:24}}>All standard clubs already in bag.</Text>
 :presets.map(c=>(
-<TouchableOpacity key={c.id} onPress={()=>{onAdd(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:`,model:`}));onClose();}}
+<TouchableOpacity key={c.id} onPress={()=>{onAdd(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}));onClose();}}
 style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,padding:13,backgroundColor:C.bgSurface,borderRadius:10,borderWidth:1,borderColor:C.borderGreen,marginBottom:6}}>
 <Text style={{fontSize:13,color:C.textPrimary,fontFamily:FONT}}>{c.name}</Text>
 <Text style={{fontSize:11,color:C.gold,fontFamily:FONT}}>{c.defaultDist}y  + Add</Text>
@@ -207,15 +211,19 @@ style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,bord
 // ─────────────────────────────────────────────────────────────────────────────
 function Onboarding({onComplete}) {
 const [step, setStep]         = useState(1);
-const [name, setName]         = useState(`); const [hcpInput, setHcpInput] = useState(`);
+const [name, setName]         = useState(EMPTY);
+const [hcpInput, setHcpInput] = useState(EMPTY);
 const [noHcp, setNoHcp]       = useState(false);
-const [courseSearch, setCourseSearch]     = useState(`); const [homeCourse, setHomeCourse]         = useState(null); const [showCourseList, setShowCourseList] = useState(false); const [bagClubs, setBagClubs] = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:`,model:``}))));
+const [courseSearch, setCourseSearch]     = useState(EMPTY);
+const [homeCourse, setHomeCourse]         = useState(null);
+const [showCourseList, setShowCourseList] = useState(false);
+const [bagClubs, setBagClubs] = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}))));
 const [showAddModal, setShowAddModal] = useState(false);
 const [mode, setMode] = useState(`semi`);
 
 const hcp      = parseFloat(hcpInput)||12;
 const hcpScale = hcp<=5?1.08:hcp<=10?1.03:hcp<=15?1.0:hcp<=20?0.96:0.91;
-const canNext1 = name.trim().length>=2&&(noHcp||(!isNaN(parseFloat(hcpInput))&&hcpInput!==``));
+const canNext1 = name.trim().length>=2&&(noHcp||(!isNaN(parseFloat(hcpInput))&&hcpInput!==EMPTY));
 const activeBag = bagClubs.filter(c=>c.inBag);
 
 const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>(Object.assign({},c,{dist:c.cat===`putter`?0:Math.round((c.defaultDist||150)*hcpScale)}))));
@@ -238,7 +246,7 @@ const Progress = ()=>(
 
 const finish = () => {
 const obIds   = new Set(bagClubs.filter(c=>c.inBag).map(c=>c.id));
-const missing = CLUBS.filter(c=>!obIds.has(c.id)).map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:false,make:`,model:`})));
+const missing = CLUBS.filter(c=>!obIds.has(c.id)).map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:false,make:EMPTY,model:EMPTY})));
 onComplete({name:name.trim(),handicap:noHcp?null:parseFloat(hcpInput),homeCourse,clubs:bagClubs.filter(c=>c.inBag).concat(missing),engagementMode:mode});
 };
 
@@ -269,7 +277,7 @@ if (step===1) return (
       <TextInput value={hcpInput} onChangeText={t=>{setHcpInput(t);setNoHcp(false);}} placeholder=`e.g. 8.4`
         placeholderTextColor={C.textMuted} keyboardType=`decimal-pad` editable={!noHcp}
         style={[s.input,{flex:1,opacity:noHcp?0.4:1,borderColor:hcpInput&&!noHcp?C.borderGold:C.borderGreen}]}/>
-      <TouchableOpacity onPress={()=>{setNoHcp(n=>!n);setHcpInput(``);}}
+      <TouchableOpacity onPress={()=>{setNoHcp(n=>!n);setHcpInput(EMPTY);}}
         style={{borderRadius:10,borderWidth:1,borderColor:noHcp?C.gold:C.borderSub,backgroundColor:noHcp?C.goldFaint:`transparent`,paddingHorizontal:14,justifyContent:`center`}}>
         <Text style={{color:noHcp?C.gold:C.textMuted,fontFamily:FONT,fontSize:11}}>No index</Text>
       </TouchableOpacity>
@@ -468,7 +476,7 @@ return (
 <View style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,marginBottom:14}}>
 <View>
 <Text style={{fontSize:16,fontWeight:`700`,color:C.textPrimary,fontFamily:FONT}}>My Bag</Text>
-<Text style={{fontSize:11,color:activeBag.length>14?C.bogey:C.textMuted,fontFamily:FONT}}>{activeBag.length}/14 clubs{activeBag.length>14?` — over limit`:``}</Text>
+<Text style={{fontSize:11,color:activeBag.length>14?C.bogey:C.textMuted,fontFamily:FONT}}>{activeBag.length}/14 clubs{activeBag.length>14?` — over limit`:EMPTY}</Text>
 </View>
 <TouchableOpacity onPress={()=>setShowAddModal(true)}
 style={{flexDirection:`row`,alignItems:`center`,gap:6,paddingHorizontal:14,paddingVertical:8,borderRadius:10,borderWidth:1,borderColor:C.borderGold,backgroundColor:C.goldFaint}}>
@@ -559,8 +567,8 @@ const TAB_ICONS = {Dashboard:`⬡`,Round:`⛳`,Bag:`◉`,`The Card`:`◈`,Squire
 
 export default function PillarSquire() {
 const [onboarded, setOnboarded] = useState(false);
-const [player,    setPlayer]    = useState({name:`,id:`,handicap:null,homeCourse:null});
-const [clubs,     setClubs]     = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:`,model:`}))));
+const [player,    setPlayer]    = useState({name:EMPTY,id:EMPTY,handicap:null,homeCourse:null});
+const [clubs,     setClubs]     = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}))));
 const [rounds,    setRounds]    = useState([]);
 const [activeTab, setActiveTab] = useState(`Dashboard`);
 
