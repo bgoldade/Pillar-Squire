@@ -379,8 +379,9 @@ style={{flexDirection:ROW,justifyContent:CENTER,alignItems:CENTER,gap:8,padding:
 </SafeAreaView>
 );
 
-const squireIntro = noHcp?`Ill build your handicap index from scratch as we play together.`:`A ${hcpInput} handicap. Ill track your SG data and tailor every recommendation to your game.`;
-const squireRead = noHcp?`Welcome to the bag, ${name.split(SP)[0]||FRIEND}. Ill start tracking your differentials from round one. After five rounds Ill have your index.`:parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what youre doing. Ill focus on the details that separate good rounds from great ones.`:parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where.`:`${hcpInput}. Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round.`;
+const squireIntro = noHcp?[`Ill build your handicap index from scratch as we play together`].join(EMPTY)+DOT:[`A`].join(EMPTY)+SP+hcpInput+SP+[`handicap. Ill track your SG data and tailor every recommendation to your game`].join(EMPTY)+DOT;
+const nm = name.split(SP)[0]||FRIEND;
+const squireRead = noHcp?[`Welcome to the bag`].join(EMPTY)+COMMA_SP+nm+DOT+[` Ill start tracking your differentials from round one. After five rounds Ill have your index`].join(EMPTY)+DOT:parseFloat(hcpInput)<=5?[`A`].join(EMPTY)+SP+hcpInput+[` — you know what youre doing. Ill focus on the details that separate good rounds from great ones`].join(EMPTY)+DOT:parseFloat(hcpInput)<=12?hcpInput+[` handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where`].join(EMPTY)+DOT:hcpInput+DOT+[` Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round`].join(EMPTY)+DOT;
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <StatusBar barStyle={LIGHT_CONTENT}/>
