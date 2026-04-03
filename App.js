@@ -50,6 +50,12 @@ const DECIMAL = `decimal-pad`;
 const NUMBER = `number-pad`;
 const BOLD = `700`;
 const SEMI = `600`;
+const W800 = `800`;
+const TRANSPARENT = TRANSPARENT;
+const STRETCH = STRETCH;
+const BASELINE = BASELINE;
+const SP = SP;
+
 const NORMAL = `400`;
 
 const CLUBS = [
@@ -114,7 +120,7 @@ return (
 <Text style={{fontSize:11,color:clubColor(c.cat),width:14,textAlign:CENTER}}>{c.icon}</Text>
 <View style={{flex:1}}>
 <Text style={{fontSize:14,color:C.textPrimary,fontFamily:FONT}}>{clubLabel(c)}</Text>
-{(c.make||c.model)?<Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{[c.make,c.model].filter(Boolean).join(` `)}</Text>:null}
+{(c.make||c.model)?<Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{[c.make,c.model].filter(Boolean).join(SP)}</Text>:null}
 </View>
 {c.cat!==`putter`&&(
 <View style={{flexDirection:ROW,alignItems:CENTER,gap:6}}>
@@ -128,10 +134,10 @@ return (
 </View>
 )}
 </View>
-{onRemove&&<TouchableOpacity onPress={onRemove} style={{paddingHorizontal:14,alignSelf:`stretch`,justifyContent:CENTER,borderLeftWidth:1,borderLeftColor:C.borderSub}}>
+{onRemove&&<TouchableOpacity onPress={onRemove} style={{paddingHorizontal:14,alignSelf:STRETCH,justifyContent:CENTER,borderLeftWidth:1,borderLeftColor:C.borderSub}}>
 <Text style={{color:C.textMuted,fontSize:14}}>x</Text>
 </TouchableOpacity>}
-{onActivate&&<TouchableOpacity onPress={onActivate} style={{paddingHorizontal:14,alignSelf:`stretch`,justifyContent:CENTER,borderLeftWidth:1,borderLeftColor:C.borderSub}}>
+{onActivate&&<TouchableOpacity onPress={onActivate} style={{paddingHorizontal:14,alignSelf:STRETCH,justifyContent:CENTER,borderLeftWidth:1,borderLeftColor:C.borderSub}}>
 <Text style={{color:C.gold,fontSize:11,fontFamily:FONT}}>+ Add</Text>
 </TouchableOpacity>}
 </View>
@@ -170,7 +176,7 @@ return (
 <View style={{flexDirection:ROW,padding:12,gap:8}}>
 {[{v:`preset`,l:`Standard`},{v:`vault`,l:`Vault`},{v:`custom`,l:`Custom`}].map(t=>(
 <TouchableOpacity key={t.v} onPress={()=>setTab(t.v)}
-style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.borderGold:C.borderSub,backgroundColor:tab===t.v?C.goldFaint:`transparent`,alignItems:CENTER}}>
+style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.borderGold:C.borderSub,backgroundColor:tab===t.v?C.goldFaint:TRANSPARENT,alignItems:CENTER}}>
 <Text style={{fontSize:11,fontFamily:FONT,color:tab===t.v?C.gold:C.textMuted,fontWeight:tab===t.v?BOLD:NORMAL}}>{t.l}</Text>
 </TouchableOpacity>
 ))}
@@ -209,7 +215,7 @@ style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,
 <View style={{flexDirection:ROW,gap:6,flexWrap:WRAP}}>
 {CATS.map(cat=>(
 <TouchableOpacity key={cat} onPress={()=>setCustomCat(cat)}
-style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,borderColor:customCat===cat?C.borderGold:C.borderSub,backgroundColor:customCat===cat?C.goldFaint:`transparent`}}>
+style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,borderColor:customCat===cat?C.borderGold:C.borderSub,backgroundColor:customCat===cat?C.goldFaint:TRANSPARENT}}>
 <Text style={{fontSize:12,fontFamily:FONT,color:customCat===cat?C.gold:C.textMuted}}>{cat}</Text>
 </TouchableOpacity>
 ))}
@@ -283,7 +289,7 @@ if (step===1) return (
 <Progress/>
 <ScrollView contentContainerStyle={{padding:24,paddingTop:40}} keyboardShouldPersistTaps={HANDLED}>
 <View style={{alignItems:CENTER,marginBottom:40}}>
-<View style={{flexDirection:ROW,alignItems:`baseline`,gap:8}}>
+<View style={{flexDirection:ROW,alignItems:BASELINE,gap:8}}>
 <Text style={{fontSize:28,fontWeight:BOLD,letterSpacing:3,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
 <Text style={{color:C.goldDim,fontSize:18,fontFamily:FONT}}>&</Text>
 <Text style={{fontSize:28,fontWeight:NORMAL,letterSpacing:4,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
@@ -304,7 +310,7 @@ if (step===1) return (
         placeholderTextColor={C.textMuted} keyboardType={DECIMAL} editable={!noHcp}
         style={[s.input,{flex:1,opacity:noHcp?0.4:1,borderColor:hcpInput&&!noHcp?C.borderGold:C.borderGreen}]}/>
       <TouchableOpacity onPress={()=>{setNoHcp(n=>!n);setHcpInput(EMPTY);}}
-        style={{borderRadius:10,borderWidth:1,borderColor:noHcp?C.gold:C.borderSub,backgroundColor:noHcp?C.goldFaint:`transparent`,paddingHorizontal:14,justifyContent:CENTER}}>
+        style={{borderRadius:10,borderWidth:1,borderColor:noHcp?C.gold:C.borderSub,backgroundColor:noHcp?C.goldFaint:TRANSPARENT,paddingHorizontal:14,justifyContent:CENTER}}>
         <Text style={{color:noHcp?C.gold:C.textMuted,fontFamily:FONT,fontSize:11}}>No index</Text>
       </TouchableOpacity>
     </View>
@@ -319,7 +325,7 @@ if (step===1) return (
       <View style={{backgroundColor:C.bgSurface,borderWidth:1,borderColor:C.borderGreen,borderRadius:10,marginBottom:16}}>
         {filteredCourses.slice(0,6).map(c=>(
           <TouchableOpacity key={c.id} onPress={()=>{setHomeCourse(c);setCourseSearch(c.name);setShowCourseList(false);}}
-            style={{padding:12,borderBottomWidth:1,borderBottomColor:C.borderSub,backgroundColor:homeCourse?.id===c.id?C.goldFaint:`transparent`}}>
+            style={{padding:12,borderBottomWidth:1,borderBottomColor:C.borderSub,backgroundColor:homeCourse?.id===c.id?C.goldFaint:TRANSPARENT}}>
             <Text style={{fontSize:13,fontWeight:SEMI,color:homeCourse?.id===c.id?C.gold:C.textPrimary,fontFamily:FONT}}>{c.name}</Text>
             <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{c.city}</Text>
           </TouchableOpacity>
@@ -380,17 +386,20 @@ return (
 <ScrollView contentContainerStyle={{padding:24,paddingTop:40}}>
 <View style={{alignItems:CENTER,marginBottom:32}}>
 <View style={{width:72,height:72,borderRadius:36,backgroundColor:C.gold,alignItems:CENTER,justifyContent:CENTER,marginBottom:16}}>
-<Text style={{fontSize:28,color:C.textInverse,fontWeight:`800`,fontFamily:FONT}}>S</Text>
+<Text style={{fontSize:28,color:C.textInverse,fontWeight:W800,fontFamily:FONT}}>S</Text>
 </View>
 <Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:8,fontFamily:FONT}}>
-Meet Squire{name?[COMMA_SP,name.split(` `)[0],DOT].join(EMPTY):DOT}
+Meet Squire{name?[COMMA_SP,name.split(SP)[0],DOT].join(EMPTY):DOT}
 </Text>
 <Text style={{fontSize:14,color:C.textMuted,lineHeight:22,textAlign:CENTER,fontFamily:FONT}}>
 {noHcp?`Ill build your handicap index from scratch as we play together.`:`A ${hcpInput} handicap. Ill track your SG data and tailor every recommendation to your game.`}
 </Text>
 </View>
 <View style={[s.gCard,{marginBottom:24}]}>
-<Text style={[s.label,{color:C.gold,marginBottom:8}]}>SQUIRE`S FIRST READ</Text> <Text style={{fontSize:13,color:C.textSecondary,lineHeight:22,fontFamily:FONT}}> {noHcp?`Welcome to the bag, ${name.split(` `)[0]||`friend`}. Ill start tracking your differentials from round one. After five rounds Ill have your index.` :parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what youre doing. Ill focus on the details that separate good rounds from great ones.` :parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where.` :`${hcpInput}. Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round.`} </Text> </View> <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text> {[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`Ill speak up when I see something.`}].map(m=>( <TouchableOpacity key={m.v} onPress={()=>setMode(m.v)} style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:`transparent`}}> <View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:`transparent`,alignItems:CENTER,justifyContent:CENTER}}>
+<Text style={[s.label,{color:C.gold,marginBottom:8}]}>SQUIRE`S FIRST READ</Text> <Text style={{fontSize:13,color:C.textSecondary,lineHeight:22,fontFamily:FONT}}> {noHcp?`Welcome to the bag, ${name.split(SP)[0]||`friend`}. Ill start tracking your differentials from round one. After five rounds Ill have your index.` :parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what youre doing. Ill focus on the details that separate good rounds from great ones.` :parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where.` :`${hcpInput}. Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round.`} </Text> </View> <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text> {[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`Ill speak up when I see something.`}].map(m=>(
+<TouchableOpacity key={m.v} onPress={()=>setMode(m.v)}
+style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:TRANSPARENT}}>
+<View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:TRANSPARENT,alignItems:CENTER,justifyContent:CENTER}}>
 {mode===m.v&&<View style={{width:7,height:7,borderRadius:4,backgroundColor:C.textInverse}}/>}
 </View>
 <View style={{flex:1}}>
@@ -426,7 +435,7 @@ return (
 <View>
 <Text style={[s.label,{color:C.gold,marginBottom:4}]}>HANDICAP</Text>
 <Text style={{fontSize:44,fontWeight:BOLD,color:C.gold,lineHeight:48,fontFamily:FONT}}>
-{displayHdcp!==null?displayHdcp:`—`}
+{displayHdcp!==null?displayHdcp:DASH}
 </Text>
 <Text style={{fontSize:9,color:C.textMuted,fontFamily:FONT}}>
 {handicapIndex!==null?`WHS INDEX`:player.handicap!==null?`ENTERED`:`NO INDEX`}
@@ -583,7 +592,7 @@ function SquireTab() {
 return (
 <View style={{flex:1,alignItems:CENTER,justifyContent:CENTER,padding:24}}>
 <View style={{width:72,height:72,borderRadius:36,backgroundColor:C.gold,alignItems:CENTER,justifyContent:CENTER,marginBottom:16}}>
-<Text style={{fontSize:28,color:C.textInverse,fontWeight:`800`,fontFamily:FONT}}>S</Text>
+<Text style={{fontSize:28,color:C.textInverse,fontWeight:W800,fontFamily:FONT}}>S</Text>
 </View>
 <Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,fontFamily:FONT,marginBottom:8}}>Squire</Text>
 <Text style={{fontSize:14,color:C.textMuted,fontFamily:FONT,textAlign:CENTER,lineHeight:22}}>Full AI caddy chat coming in the next build.</Text>
@@ -625,7 +634,7 @@ return (
 <StatusBar barStyle={LIGHT_CONTENT}/>
 <View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,backgroundColor:`rgba(6,13,9,0.97)`}}>
 <View>
-<View style={{flexDirection:ROW,alignItems:`baseline`,gap:6}}>
+<View style={{flexDirection:ROW,alignItems:BASELINE,gap:6}}>
 <Text style={{fontSize:17,fontWeight:BOLD,letterSpacing:2,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
 <Text style={{color:C.goldDim,fontSize:12,fontFamily:FONT}}>&</Text>
 <Text style={{fontSize:17,fontWeight:NORMAL,letterSpacing:2,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
@@ -634,7 +643,7 @@ return (
 </View>
 <View style={{alignItems:FLEX_END}}>
 <Text style={[s.label,{color:C.gold}]}>HDCP</Text>
-<Text style={{fontSize:22,fontWeight:BOLD,color:C.gold,lineHeight:26,fontFamily:FONT}}>{displayHdcp!==null?displayHdcp:`—`}</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.gold,lineHeight:26,fontFamily:FONT}}>{displayHdcp!==null?displayHdcp:DASH}</Text>
 </View>
 </View>
 <View style={{flex:1}}>{renderTab()}</View>
