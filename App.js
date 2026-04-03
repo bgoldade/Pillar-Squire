@@ -51,7 +51,7 @@ const COURSE_DB = [
 // ── WHS ───────────────────────────────────────────────────────────────────────
 const calcHandicapIndex = (rounds) => {
 if (!rounds || rounds.length < 3) return null;
-const diffs = […rounds].sort((a,b) => a.differential - b.differential);
+const diffs = rounds.slice(0).sort((a,b) => a.differential - b.differential);
 const n = rounds.length<=6?1:rounds.length<=9?2:rounds.length<=11?3:
 rounds.length<=13?4:rounds.length<=15?5:rounds.length<=16?6:
 rounds.length<=17?7:rounds.length<=18?8:rounds.length<=19?9:10;
@@ -146,7 +146,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:`center`,marginTop:24}}>All standard clubs already in bag.</Text>
 :presets.map(c=>(
-<TouchableOpacity key={c.id} onPress={()=>{onAdd({…c,dist:c.defaultDist,inBag:true,make:`,model:`});onClose();}}
+<TouchableOpacity key={c.id} onPress={()=>{onAdd(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:`,model:`}));onClose();}}
 style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,padding:13,backgroundColor:C.bgSurface,borderRadius:10,borderWidth:1,borderColor:C.borderGreen,marginBottom:6}}>
 <Text style={{fontSize:13,color:C.textPrimary,fontFamily:FONT}}>{c.name}</Text>
 <Text style={{fontSize:11,color:C.gold,fontFamily:FONT}}>{c.defaultDist}y  + Add</Text>
@@ -157,7 +157,7 @@ style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,p
 vaulted.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:`center`,marginTop:24}}>No clubs in vault.</Text>
 :vaulted.map(c=>(
-<TouchableOpacity key={c.id} onPress={()=>{onAdd({…c,inBag:true});onClose();}}
+<TouchableOpacity key={c.id} onPress={()=>{onAdd(Object.assign({},c,{inBag:true}));onClose();}}
 style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,padding:13,backgroundColor:C.bgSurface,borderRadius:10,borderWidth:1,borderColor:C.borderGreen,marginBottom:6}}>
 <Text style={{fontSize:13,color:C.textPrimary,fontFamily:FONT}}>{clubLabel(c)}</Text>
 <Text style={{fontSize:11,color:C.gold,fontFamily:FONT}}>+ Add back</Text>
@@ -209,7 +209,7 @@ function Onboarding({onComplete}) {
 const [step, setStep]         = useState(1);
 const [name, setName]         = useState(`); const [hcpInput, setHcpInput] = useState(`);
 const [noHcp, setNoHcp]       = useState(false);
-const [courseSearch, setCourseSearch]     = useState(`); const [homeCourse, setHomeCourse]         = useState(null); const [showCourseList, setShowCourseList] = useState(false); const [bagClubs, setBagClubs] = useState(CLUBS.map(c=>({...c,dist:c.defaultDist,inBag:true,make:`,model:``})));
+const [courseSearch, setCourseSearch]     = useState(`); const [homeCourse, setHomeCourse]         = useState(null); const [showCourseList, setShowCourseList] = useState(false); const [bagClubs, setBagClubs] = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:`,model:``}))));
 const [showAddModal, setShowAddModal] = useState(false);
 const [mode, setMode] = useState(`semi`);
 
@@ -218,14 +218,14 @@ const hcpScale = hcp<=5?1.08:hcp<=10?1.03:hcp<=15?1.0:hcp<=20?0.96:0.91;
 const canNext1 = name.trim().length>=2&&(noHcp||(!isNaN(parseFloat(hcpInput))&&hcpInput!==``));
 const activeBag = bagClubs.filter(c=>c.inBag);
 
-const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>({…c,dist:c.cat===`putter`?0:Math.round((c.defaultDist||150)*hcpScale)})));
+const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>(Object.assign({},c,{dist:c.cat===`putter`?0:Math.round((c.defaultDist||150)*hcpScale)}))));
 const filteredCourses  = COURSE_DB.filter(c=>c.name.toLowerCase().includes(courseSearch.toLowerCase())||c.city.toLowerCase().includes(courseSearch.toLowerCase()));
-const removeClub = (id)      => setBagClubs(p=>p.map(c=>c.id===id?{…c,inBag:false}:c));
-const updateDist = (id,dist) => setBagClubs(p=>p.map(c=>c.id===id?{…c,dist}:c));
+const removeClub = (id)      => setBagClubs(p=>p.map(c=>c.id===id?Object.assign({},c,{inBag:false}):c));
+const updateDist = (id,dist) => setBagClubs(p=>p.map(c=>c.id===id?Object.assign({},c,{dist:dist}):c));
 const addClub    = (newClub) => {
 const exists = bagClubs.find(c=>c.id===newClub.id);
-if(exists) setBagClubs(p=>p.map(c=>c.id===newClub.id?{…c,inBag:true}:c));
-else setBagClubs(p=>[…p,{…newClub,inBag:true}]);
+if(exists) setBagClubs(p=>p.map(c=>c.id===newClub.id?Object.assign({},c,{inBag:true}):c));
+else setBagClubs(p=>p.concat([Object.assign({},newClub,{inBag:true})]));
 };
 
 const CLUB_GROUPS = [{label:`Driver & Woods`,cats:[`woods`]},{label:`Hybrids & Irons`,cats:[`hybrid`,`iron`]},{label:`Wedges`,cats:[`wedge`]},{label:`Putter`,cats:[`putter`]}];
@@ -238,8 +238,8 @@ const Progress = ()=>(
 
 const finish = () => {
 const obIds   = new Set(bagClubs.filter(c=>c.inBag).map(c=>c.id));
-const missing = CLUBS.filter(c=>!obIds.has(c.id)).map(c=>({…c,dist:c.defaultDist,inBag:false,make:`,model:`}));
-onComplete({name:name.trim(),handicap:noHcp?null:parseFloat(hcpInput),homeCourse,clubs:[…bagClubs.filter(c=>c.inBag),…missing],engagementMode:mode});
+const missing = CLUBS.filter(c=>!obIds.has(c.id)).map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:false,make:`,model:`})));
+onComplete({name:name.trim(),handicap:noHcp?null:parseFloat(hcpInput),homeCourse,clubs:bagClubs.filter(c=>c.inBag).concat(missing),engagementMode:mode});
 };
 
 // ── Step 1 ──────────────────────────────────────────────────────────────────
@@ -278,7 +278,7 @@ if (step===1) return (
 
     <Text style={[s.label,{marginBottom:8}]}>HOME COURSE <Text style={{color:C.borderSub}}>· OPTIONAL</Text></Text>
     <TextInput value={courseSearch} onChangeText={t=>{setCourseSearch(t);setShowCourseList(true);}} onFocus={()=>setShowCourseList(true)}
-      placeholder=`Search your course...` placeholderTextColor={C.textMuted}
+      placeholder=`Search your course` placeholderTextColor={C.textMuted}
       style={[s.input,{marginBottom:4,borderColor:homeCourse?C.borderGold:C.borderGreen}]}/>
     {homeCourse&&!showCourseList&&<Text style={{fontSize:11,color:C.gold,marginBottom:16,fontFamily:FONT}}>✓ {homeCourse.name}</Text>}
     {showCourseList&&filteredCourses.length>0&&(
@@ -365,7 +365,7 @@ style={{flexDirection:`row`,alignItems:`center`,gap:14,padding:14,marginBottom:8
 function Dashboard({player, rounds, handicapIndex, setActiveTab}) {
 const tp = (r) => r.score-r.course.par;
 const scoreColor = (r) => tp(r)<0?C.birdie:tp(r)===0?C.par:tp(r)<=3?C.bogey:C.double;
-const recent = […rounds].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
+const recent = rounds.slice(0).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
 const displayHdcp = handicapIndex!==null?handicapIndex:player.handicap;
 
 return (
@@ -393,7 +393,7 @@ return (
 </View>
 {rounds.length>0&&<View>
 <Text style={[s.label,{marginBottom:4}]}>LOW ROUND</Text>
-<Text style={{fontSize:22,fontWeight:`600`,color:C.birdie,fontFamily:FONT}}>{Math.min(…rounds.map(r=>r.score))}</Text>
+<Text style={{fontSize:22,fontWeight:`600`,color:C.birdie,fontFamily:FONT}}>{rounds.reduce((m,r)=>r.score<m?r.score:m, rounds[0].score)}</Text>
 <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>best</Text>
 </View>}
 </View>
@@ -453,13 +453,13 @@ function BagTab({clubs, setClubs}) {
 const [showAddModal, setShowAddModal] = useState(false);
 const activeBag = clubs.filter(c=>c.inBag);
 const vaultBag  = clubs.filter(c=>!c.inBag);
-const deactivate = (id)      => setClubs(cs=>cs.map(c=>c.id===id?{…c,inBag:false}:c));
-const activate   = (id)      => setClubs(cs=>cs.map(c=>c.id===id?{…c,inBag:true}:c));
-const updateDist = (id,dist) => setClubs(cs=>cs.map(c=>c.id===id?{…c,dist}:c));
+const deactivate = (id)      => setClubs(cs=>cs.map(c=>c.id===id?Object.assign({},c,{inBag:false}):c));
+const activate   = (id)      => setClubs(cs=>cs.map(c=>c.id===id?Object.assign({},c,{inBag:true}):c));
+const updateDist = (id,dist) => setClubs(cs=>cs.map(c=>c.id===id?Object.assign({},c,{dist:dist}):c));
 const addClub    = (newClub) => {
 const exists = clubs.find(c=>c.id===newClub.id);
-if(exists) setClubs(cs=>cs.map(c=>c.id===newClub.id?{…c,inBag:true}:c));
-else setClubs(cs=>[…cs,newClub]);
+if(exists) setClubs(cs=>cs.map(c=>c.id===newClub.id?Object.assign({},c,{inBag:true}):c));
+else setClubs(cs=>cs.concat([newClub]));
 };
 const GROUPS = [{label:`Driver & Woods`,cats:[`woods`]},{label:`Hybrids & Irons`,cats:[`hybrid`,`iron`]},{label:`Wedges`,cats:[`wedge`]},{label:`Putter`,cats:[`putter`]}];
 return (
@@ -505,7 +505,7 @@ return (
 // THE CARD / SQUIRE / ROUND placeholders
 // ─────────────────────────────────────────────────────────────────────────────
 function TheCard({rounds, player}) {
-const sorted = […rounds].sort((a,b)=>new Date(b.date)-new Date(a.date));
+const sorted = rounds.slice(0).sort((a,b)=>new Date(b.date)-new Date(a.date));
 return (
 <ScrollView contentContainerStyle={{padding:18}}>
 <Text style={[s.label,{color:C.gold,marginBottom:12}]}>STATS & HISTORY</Text>
@@ -560,7 +560,7 @@ const TAB_ICONS = {Dashboard:`⬡`,Round:`⛳`,Bag:`◉`,`The Card`:`◈`,Squire
 export default function PillarSquire() {
 const [onboarded, setOnboarded] = useState(false);
 const [player,    setPlayer]    = useState({name:`,id:`,handicap:null,homeCourse:null});
-const [clubs,     setClubs]     = useState(CLUBS.map(c=>({…c,dist:c.defaultDist,inBag:true,make:`,model:`})));
+const [clubs,     setClubs]     = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:`,model:`}))));
 const [rounds,    setRounds]    = useState([]);
 const [activeTab, setActiveTab] = useState(`Dashboard`);
 
