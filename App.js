@@ -379,6 +379,8 @@ style={{flexDirection:ROW,justifyContent:CENTER,alignItems:CENTER,gap:8,padding:
 </SafeAreaView>
 );
 
+const squireIntro = noHcp?`Ill build your handicap index from scratch as we play together.`:`A ${hcpInput} handicap. Ill track your SG data and tailor every recommendation to your game.`;
+const squireRead = noHcp?`Welcome to the bag, ${name.split(SP)[0]||FRIEND}. Ill start tracking your differentials from round one. After five rounds Ill have your index.`:parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what youre doing. Ill focus on the details that separate good rounds from great ones.`:parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where.`:`${hcpInput}. Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round.`;
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <StatusBar barStyle={LIGHT_CONTENT}/>
@@ -392,11 +394,17 @@ return (
 Meet Squire{name?[COMMA_SP,name.split(SP)[0],DOT].join(EMPTY):DOT}
 </Text>
 <Text style={{fontSize:14,color:C.textMuted,lineHeight:22,textAlign:CENTER,fontFamily:FONT}}>
-{noHcp?`Ill build your handicap index from scratch as we play together.`:`A ${hcpInput} handicap. Ill track your SG data and tailor every recommendation to your game.`}
+{squireIntro}
 </Text>
 </View>
 <View style={[s.gCard,{marginBottom:24}]}>
-<Text style={[s.label,{color:C.gold,marginBottom:8}]}>SQUIRE`S FIRST READ</Text> <Text style={{fontSize:13,color:C.textSecondary,lineHeight:22,fontFamily:FONT}}> {noHcp?`Welcome to the bag, ${name.split(SP)[0]||`friend`}. Ill start tracking your differentials from round one. After five rounds Ill have your index.` :parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what youre doing. Ill focus on the details that separate good rounds from great ones.` :parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where.` :`${hcpInput}. Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round.`} </Text> </View> <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text> {[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`Ill speak up when I see something.`}].map(m=>(
+<Text style={[s.label,{color:C.gold,marginBottom:8}]}>SQUIRES FIRST READ</Text>
+<Text style={{fontSize:13,color:C.textSecondary,lineHeight:22,fontFamily:FONT}}>
+{squireRead}
+</Text>
+</View>
+<Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text>
+{[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`Ill speak up when I see something.`}].map(m=>(
 <TouchableOpacity key={m.v} onPress={()=>setMode(m.v)}
 style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:TRANSPARENT}}>
 <View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:TRANSPARENT,alignItems:CENTER,justifyContent:CENTER}}>
