@@ -283,7 +283,7 @@ if (step===1) return (
 </View>
 <Text style={{fontSize:10,color:C.textMuted,letterSpacing:2,marginTop:4,fontFamily:FONT}}>YOUR AI CADDY</Text>
 </View>
-<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Let`s get you set up.</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Lets get you set up.</Text>
 <Text style={{fontSize:14,color:C.textMuted,marginBottom:32,lineHeight:22,fontFamily:FONT}}>Squire needs a few things to caddy for you properly.</Text>
 
 ```
@@ -337,7 +337,7 @@ if (step===2) return (
 <Text style={{fontSize:10,color:C.gold,letterSpacing:2,marginBottom:4,fontFamily:FONT}}>STEP 2 OF 3</Text>
 <Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Your bag.</Text>
 <Text style={{fontSize:13,color:C.textMuted,lineHeight:20,marginBottom:20,fontFamily:FONT,fontStyle:ITALIC}}>
-Scaled for a {noHcp?`typical`:hcp.toFixed(1)} handicap. Tap - to remove clubs you don`t carry.
+Scaled for a {noHcp?`typical`:hcp.toFixed(1)} handicap. Tap - to remove clubs you dont carry.
 </Text>
 {CLUB_GROUPS.map(({label,cats})=>{
 const group = activeBag.filter(c=>cats.includes(c.cat));
@@ -379,26 +379,18 @@ return (
 Meet Squire{name?`, ${name.split(` `)[0]}.`:`.`}
 </Text>
 <Text style={{fontSize:14,color:C.textMuted,lineHeight:22,textAlign:CENTER,fontFamily:FONT}}>
-{noHcp?`I`ll build your handicap index from scratch as we play together.`:`A ${hcpInput} handicap. I`ll track your SG data and tailor every recommendation to your game.`}
+{noHcp?`Ill build your handicap index from scratch as we play together.`:`A ${hcpInput} handicap. Ill track your SG data and tailor every recommendation to your game.`}
 </Text>
 </View>
 <View style={[s.gCard,{marginBottom:24}]}>
-<Text style={[s.label,{color:C.gold,marginBottom:8}]}>SQUIRE`S FIRST READ</Text> <Text style={{fontSize:13,color:C.textSecondary,lineHeight:22,fontFamily:FONT}}> {noHcp?`Welcome to the bag, ${name.split(` `)[0]||`friend`}. I`ll start tracking your differentials from round one. After five rounds I`ll have your index.` :parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what you`re doing. I`ll focus on the details that separate good rounds from great ones.` :parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. I`ll track your SG data and tell you exactly where.`
-:`${hcpInput}. Every shot tells a story. I`ll build your dispersion profile and give you a game plan before every round.`} </Text> </View> <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text> {[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`I`ll speak up when I see something.`}].map(m=>(
-<TouchableOpacity key={m.v} onPress={()=>setMode(m.v)}
-style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:`transparent`}}>
-<View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:`transparent`,alignItems:CENTER,justifyContent:CENTER}}>
-{mode===m.v&&<View style={{width:7,height:7,borderRadius:4,backgroundColor:C.textInverse}}/>}
-</View>
-<View style={{flex:1}}>
-<Text style={{fontSize:13,fontWeight:mode===m.v?`700`:`500`,color:mode===m.v?C.gold:C.textPrimary,fontFamily:FONT}}>{m.title}</Text>
+<Text style={[s.label,{color:C.gold,marginBottom:8}]}>SQUIRE`S FIRST READ</Text> <Text style={{fontSize:13,color:C.textSecondary,lineHeight:22,fontFamily:FONT}}> {noHcp?`Welcome to the bag, ${name.split(` `)[0]||`friend`}. Ill start tracking your differentials from round one. After five rounds Ill have your index.` :parseFloat(hcpInput)<=5?`A ${hcpInput} — you know what youre doing. Ill focus on the details that separate good rounds from great ones.` :parseFloat(hcpInput)<=12?`${hcpInput} handicap. There are clear shots to be gained here. Ill track your SG data and tell you exactly where.` :`${hcpInput}. Every shot tells a story. Ill build your dispersion profile and give you a game plan before every round.`} </Text> </View> <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text> {[{v:`reactive`,title:`On Request`,desc:`Only when you ask. Quiet caddy.`},{v:`semi`,title:`Semi-Active`,desc:`Pre-shot briefs + when you ask. Recommended.`},{v:`proactive`,title:`Full Caddy`,desc:`Ill speak up when I see something.`}].map(m=>( <TouchableOpacity key={m.v} onPress={()=>setMode(m.v)} style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:`transparent`}}> <View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:`transparent`,alignItems:CENTER,justifyContent:CENTER}}> {mode===m.v&&<View style={{width:7,height:7,borderRadius:4,backgroundColor:C.textInverse}}/>} </View> <View style={{flex:1}}> <Text style={{fontSize:13,fontWeight:mode===m.v?`700`:`500`,color:mode===m.v?C.gold:C.textPrimary,fontFamily:FONT}}>{m.title}</Text>
 <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT}}>{m.desc}</Text>
 </View>
 </TouchableOpacity>
 ))}
 <View style={{flexDirection:ROW,gap:10,marginTop:24,marginBottom:40}}>
 <TouchableOpacity onPress={()=>setStep(2)} style={[s.ghostBtn,{flex:1}]}><Text style={s.ghostBtnTx}>← Back</Text></TouchableOpacity>
-<TouchableOpacity onPress={finish} style={[s.goldBtn,{flex:2}]}><Text style={s.goldBtnTx}>Let`s Play ⛳</Text></TouchableOpacity>
+<TouchableOpacity onPress={finish} style={[s.goldBtn,{flex:2}]}><Text style={s.goldBtnTx}>Lets Play ⛳</Text></TouchableOpacity>
 </View>
 </ScrollView>
 </SafeAreaView>
@@ -447,7 +439,7 @@ return (
     <View style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,marginBottom:12}}>
       <View>
         <Text style={{fontSize:14,fontWeight:BOLD,color:C.gold,fontFamily:FONT,marginBottom:2}}>Ready to play?</Text>
-        <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT}}>Get Squire`s read before you tee off</Text>
+        <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT}}>Get Squires read before you tee off</Text>
       </View>
       <Text style={{fontSize:28}}>⛳</Text>
     </View>
