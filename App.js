@@ -1,8 +1,8 @@
-import React, { useState } from “react”;
+import React, { useState } from "react";
 import {
 View, Text, ScrollView, TouchableOpacity, TextInput,
 StatusBar, SafeAreaView, StyleSheet, Modal, Dimensions,
-} from “react-native”;
+} from "react-native";
 
 const { width: SW } = Dimensions.get(“window”);
 
