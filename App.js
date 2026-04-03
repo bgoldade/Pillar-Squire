@@ -16,6 +16,23 @@ borderGold:`rgba(201,168,76,0.22)`, borderGreen:`rgba(42,92,53,0.5)`, borderSub:
 };
 const FONT = `Georgia`;
 const EMPTY = [].join();
+const PH_NAME = `First name or nickname`;
+const PH_HCP = `e.g. 8.4`;
+const PH_COURSE = `Search your course`;
+const PH_SCORE = `e.g. 82`;
+const PH_CLUB = `e.g. 2 Iron`;
+const PH_DIST = `150`;
+const PH_LOFT = `e.g. 52`;
+const PH_SEARCH = `Search...`;
+const LIGHT_CONTENT = `light-content`;
+const PAGE_SHEET = `pageSheet`;
+const SLIDE = `slide`;
+const HANDLED = `handled`;
+const DECIMAL = `decimal-pad`;
+const NUMBER = `number-pad`;
+const BOLD = `700`;
+const SEMI = `600`;
+const NORMAL = `400`;
 
 // ── Club data ─────────────────────────────────────────────────────────────────
 const CLUBS = [
@@ -62,11 +79,11 @@ return parseFloat((best.reduce((a,b)=>a+b.differential,0)/n*0.96).toFixed(1));
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const s = StyleSheet.create({
-label:     {fontSize:9,fontFamily:FONT,color:C.textMuted,letterSpacing:1.4,fontWeight:`600`},
+label:     {fontSize:9,fontFamily:FONT,color:C.textMuted,letterSpacing:1.4,fontWeight:SEMI},
 card:      {backgroundColor:C.bgSurface,borderRadius:12,borderWidth:1,borderColor:C.borderGreen,padding:14,marginBottom:10},
 gCard:     {backgroundColor:C.bgSurface,borderRadius:12,borderWidth:1,borderColor:C.borderGold,padding:14,marginBottom:10},
 goldBtn:   {backgroundColor:C.gold,borderRadius:12,padding:14,alignItems:`center`},
-goldBtnTx: {color:C.textInverse,fontFamily:FONT,fontWeight:`700`,fontSize:14},
+goldBtnTx: {color:C.textInverse,fontFamily:FONT,fontWeight:BOLD,fontSize:14},
 ghostBtn:  {borderRadius:12,borderWidth:1,borderColor:C.borderGreen,padding:14,alignItems:`center`},
 ghostBtnTx:{color:C.textSecondary,fontFamily:FONT,fontSize:13},
 input:     {backgroundColor:C.bgOverlay,borderWidth:1,borderColor:C.borderGreen,borderRadius:10,padding:12,fontSize:15,color:C.textPrimary,fontFamily:FONT},
@@ -90,7 +107,7 @@ return (
 {onDist&&<TouchableOpacity onPress={()=>onDist(Math.max(0,c.dist-5))} style={{width:28,height:28,borderRadius:6,borderWidth:1,borderColor:C.borderSub,backgroundColor:C.bgOverlay,alignItems:`center`,justifyContent:`center`}}>
 <Text style={{color:C.textSecondary,fontSize:14}}>−</Text>
 </TouchableOpacity>}
-<Text style={{fontSize:16,fontWeight:`700`,color:clubColor(c.cat),minWidth:36,textAlign:`center`,fontFamily:FONT}}>{c.dist}</Text>
+<Text style={{fontSize:16,fontWeight:BOLD,color:clubColor(c.cat),minWidth:36,textAlign:`center`,fontFamily:FONT}}>{c.dist}</Text>
 {onDist&&<TouchableOpacity onPress={()=>onDist(c.dist+5)} style={{width:28,height:28,borderRadius:6,borderWidth:1,borderColor:C.borderSub,backgroundColor:C.bgOverlay,alignItems:`center`,justifyContent:`center`}}>
 <Text style={{color:C.textSecondary,fontSize:14}}>+</Text>
 </TouchableOpacity>}
@@ -131,10 +148,10 @@ onClose();
 };
 
 return (
-<Modal visible={visible} animationType={`slide`} presentationStyle={`pageSheet`} onRequestClose={onClose}>
+<Modal visible={visible} animationType={SLIDE} presentationStyle={PAGE_SHEET} onRequestClose={onClose}>
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <View style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,padding:18,borderBottomWidth:1,borderBottomColor:C.borderGold}}>
-<Text style={{fontSize:16,fontWeight:`700`,color:C.textPrimary,fontFamily:FONT}}>Add Club</Text>
+<Text style={{fontSize:16,fontWeight:BOLD,color:C.textPrimary,fontFamily:FONT}}>Add Club</Text>
 <TouchableOpacity onPress={onClose}><Text style={{fontSize:18,color:C.textMuted}}>✕</Text></TouchableOpacity>
 </View>
 <View style={{flexDirection:`row`,padding:12,gap:8}}>
@@ -145,7 +162,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 </TouchableOpacity>
 ))}
 </View>
-<ScrollView contentContainerStyle={{padding:16}} keyboardShouldPersistTaps={`handled`}>
+<ScrollView contentContainerStyle={{padding:16}} keyboardShouldPersistTaps={HANDLED}>
 {tab===`preset`&&(
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:`center`,marginTop:24}}>All standard clubs already in bag.</Text>
@@ -172,7 +189,7 @@ style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,p
 <View style={{gap:12}}>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CLUB NAME</Text>
-<TextInput value={customName} onChangeText={setCustomName} placeholder={`e.g. 2 Iron`} placeholderTextColor={C.textMuted} style={s.input}/>
+<TextInput value={customName} onChangeText={setCustomName} placeholder={PH_CLUB} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CATEGORY</Text>
@@ -187,12 +204,12 @@ style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,bord
 </View>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CARRY DISTANCE (YDS)</Text>
-<TextInput value={customDist} onChangeText={setCustomDist} keyboardType={`number-pad`} placeholder={`150`} placeholderTextColor={C.textMuted} style={s.input}/>
+<TextInput value={customDist} onChangeText={setCustomDist} keyboardType={NUMBER} placeholder={PH_DIST} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
 {customCat===`wedge`&&(
 <View>
 <Text style={[s.label,{marginBottom:6}]}>LOFT (OPTIONAL)</Text>
-<TextInput value={customLoft} onChangeText={setCustomLoft} keyboardType={`number-pad`} placeholder={`e.g. 52`} placeholderTextColor={C.textMuted} style={s.input}/>
+<TextInput value={customLoft} onChangeText={setCustomLoft} keyboardType={NUMBER} placeholder={PH_LOFT} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
 )}
 <TouchableOpacity onPress={addCustom} style={[s.goldBtn,{marginTop:4,opacity:customName.trim()&&customDist?1:0.4}]}>
@@ -253,29 +270,29 @@ onComplete({name:name.trim(),handicap:noHcp?null:parseFloat(hcpInput),homeCourse
 // ── Step 1 ──────────────────────────────────────────────────────────────────
 if (step===1) return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle={`light-content`}/>
+<StatusBar barStyle={LIGHT_CONTENT}/>
 <Progress/>
-<ScrollView contentContainerStyle={{padding:24,paddingTop:40}} keyboardShouldPersistTaps={`handled`}>
+<ScrollView contentContainerStyle={{padding:24,paddingTop:40}} keyboardShouldPersistTaps={HANDLED}>
 <View style={{alignItems:`center`,marginBottom:40}}>
 <View style={{flexDirection:`row`,alignItems:`baseline`,gap:8}}>
-<Text style={{fontSize:28,fontWeight:`700`,letterSpacing:3,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
+<Text style={{fontSize:28,fontWeight:BOLD,letterSpacing:3,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
 <Text style={{color:C.goldDim,fontSize:18,fontFamily:FONT}}>&</Text>
-<Text style={{fontSize:28,fontWeight:`400`,letterSpacing:4,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
+<Text style={{fontSize:28,fontWeight:NORMAL,letterSpacing:4,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
 </View>
 <Text style={{fontSize:10,color:C.textMuted,letterSpacing:2,marginTop:4,fontFamily:FONT}}>YOUR AI CADDY</Text>
 </View>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Let`s get you set up.</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Let`s get you set up.</Text>
 <Text style={{fontSize:14,color:C.textMuted,marginBottom:32,lineHeight:22,fontFamily:FONT}}>Squire needs a few things to caddy for you properly.</Text>
 
 ```
     <Text style={[s.label,{marginBottom:8}]}>YOUR NAME</Text>
-    <TextInput value={name} onChangeText={setName} placeholder={`First name or nickname`} placeholderTextColor={C.textMuted}
+    <TextInput value={name} onChangeText={setName} placeholder={PH_NAME} placeholderTextColor={C.textMuted}
       style={[s.input,{marginBottom:20,borderColor:name.length>=2?C.borderGold:C.borderGreen}]}/>
 
     <Text style={[s.label,{marginBottom:8}]}>HANDICAP INDEX</Text>
     <View style={{flexDirection:`row`,gap:8,marginBottom:8}}>
-      <TextInput value={hcpInput} onChangeText={t=>{setHcpInput(t);setNoHcp(false);}} placeholder={`e.g. 8.4`}
-        placeholderTextColor={C.textMuted} keyboardType={`decimal-pad`} editable={!noHcp}
+      <TextInput value={hcpInput} onChangeText={t=>{setHcpInput(t);setNoHcp(false);}} placeholder={PH_HCP}
+        placeholderTextColor={C.textMuted} keyboardType={DECIMAL} editable={!noHcp}
         style={[s.input,{flex:1,opacity:noHcp?0.4:1,borderColor:hcpInput&&!noHcp?C.borderGold:C.borderGreen}]}/>
       <TouchableOpacity onPress={()=>{setNoHcp(n=>!n);setHcpInput(EMPTY);}}
         style={{borderRadius:10,borderWidth:1,borderColor:noHcp?C.gold:C.borderSub,backgroundColor:noHcp?C.goldFaint:`transparent`,paddingHorizontal:14,justifyContent:`center`}}>
@@ -286,7 +303,7 @@ if (step===1) return (
 
     <Text style={[s.label,{marginBottom:8}]}>HOME COURSE <Text style={{color:C.borderSub}}>· OPTIONAL</Text></Text>
     <TextInput value={courseSearch} onChangeText={t=>{setCourseSearch(t);setShowCourseList(true);}} onFocus={()=>setShowCourseList(true)}
-      placeholder={`Search your course`} placeholderTextColor={C.textMuted}
+      placeholder={PH_COURSE} placeholderTextColor={C.textMuted}
       style={[s.input,{marginBottom:4,borderColor:homeCourse?C.borderGold:C.borderGreen}]}/>
     {homeCourse&&!showCourseList&&<Text style={{fontSize:11,color:C.gold,marginBottom:16,fontFamily:FONT}}>✓ {homeCourse.name}</Text>}
     {showCourseList&&filteredCourses.length>0&&(
@@ -294,7 +311,7 @@ if (step===1) return (
         {filteredCourses.slice(0,6).map(c=>(
           <TouchableOpacity key={c.id} onPress={()=>{setHomeCourse(c);setCourseSearch(c.name);setShowCourseList(false);}}
             style={{padding:12,borderBottomWidth:1,borderBottomColor:C.borderSub,backgroundColor:homeCourse?.id===c.id?C.goldFaint:`transparent`}}>
-            <Text style={{fontSize:13,fontWeight:`600`,color:homeCourse?.id===c.id?C.gold:C.textPrimary,fontFamily:FONT}}>{c.name}</Text>
+            <Text style={{fontSize:13,fontWeight:SEMI,color:homeCourse?.id===c.id?C.gold:C.textPrimary,fontFamily:FONT}}>{c.name}</Text>
             <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{c.city}</Text>
           </TouchableOpacity>
         ))}
@@ -312,14 +329,14 @@ if (step===1) return (
 // ── Step 2 ──────────────────────────────────────────────────────────────────
 if (step===2) return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle={`light-content`}/>
+<StatusBar barStyle={LIGHT_CONTENT}/>
 <Progress/>
 <AddClubModal visible={showAddModal} onClose={()=>setShowAddModal(false)} onAdd={addClub} existingClubs={bagClubs}/>
-<ScrollView contentContainerStyle={{padding:24,paddingTop:32}} keyboardShouldPersistTaps={`handled`}>
+<ScrollView contentContainerStyle={{padding:24,paddingTop:32}} keyboardShouldPersistTaps={HANDLED}>
 <Text style={{fontSize:10,color:C.gold,letterSpacing:2,marginBottom:4,fontFamily:FONT}}>STEP 2 OF 3</Text>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Your bag.</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:6,fontFamily:FONT}}>Your bag.</Text>
 <Text style={{fontSize:13,color:C.textMuted,lineHeight:20,marginBottom:20,fontFamily:FONT,fontStyle:`italic`}}>
-Scaled for a {noHcp?`typical`:hcp.toFixed(1)} handicap. Tap − to remove clubs you don`t carry. </Text> {CLUB_GROUPS.map(({label,cats})=>{ const group = activeBag.filter(c=>cats.includes(c.cat)); if(!group.length) return null; return ( <View key={label} style={{marginBottom:18}}> <View style={{borderBottomWidth:1,borderBottomColor:C.borderGold,paddingBottom:5,marginBottom:8}}> <Text style={[s.label,{color:C.gold}]}>{label.toUpperCase()}</Text> </View> {group.map(c=>( <ClubRow key={c.id} c={c} onRemove={c.removable!==false?()=>removeClub(c.id):null} onDist={(d)=>updateDist(c.id,d)}/> ))} </View> ); })} <TouchableOpacity onPress={()=>setShowAddModal(true)} style={{flexDirection:`row`,justifyContent:`center`,alignItems:`center`,gap:8,padding:14,borderRadius:12,borderWidth:1,borderColor:C.borderGold,backgroundColor:C.goldFaint,marginBottom:24}}> <Text style={{fontSize:16,color:C.gold}}>+</Text> <Text style={{fontSize:13,color:C.gold,fontFamily:FONT,fontWeight:`600`}}>Add a Club</Text> </TouchableOpacity> <View style={{flexDirection:`row`,gap:10,marginBottom:32}}>
+Scaled for a {noHcp?`typical`:hcp.toFixed(1)} handicap. Tap − to remove clubs you don`t carry. </Text> {CLUB_GROUPS.map(({label,cats})=>{ const group = activeBag.filter(c=>cats.includes(c.cat)); if(!group.length) return null; return ( <View key={label} style={{marginBottom:18}}> <View style={{borderBottomWidth:1,borderBottomColor:C.borderGold,paddingBottom:5,marginBottom:8}}> <Text style={[s.label,{color:C.gold}]}>{label.toUpperCase()}</Text> </View> {group.map(c=>( <ClubRow key={c.id} c={c} onRemove={c.removable!==false?()=>removeClub(c.id):null} onDist={(d)=>updateDist(c.id,d)}/> ))} </View> ); })} <TouchableOpacity onPress={()=>setShowAddModal(true)} style={{flexDirection:`row`,justifyContent:`center`,alignItems:`center`,gap:8,padding:14,borderRadius:12,borderWidth:1,borderColor:C.borderGold,backgroundColor:C.goldFaint,marginBottom:24}}> <Text style={{fontSize:16,color:C.gold}}>+</Text> <Text style={{fontSize:13,color:C.gold,fontFamily:FONT,fontWeight:SEMI}}>Add a Club</Text> </TouchableOpacity> <View style={{flexDirection:`row`,gap:10,marginBottom:32}}>
 <TouchableOpacity onPress={()=>setStep(1)} style={[s.ghostBtn,{flex:1}]}><Text style={s.ghostBtnTx}>← Back</Text></TouchableOpacity>
 <TouchableOpacity onPress={()=>setStep(3)} style={[s.goldBtn,{flex:2}]}><Text style={s.goldBtnTx}>Continue →</Text></TouchableOpacity>
 </View>
@@ -330,14 +347,14 @@ Scaled for a {noHcp?`typical`:hcp.toFixed(1)} handicap. Tap − to remove clubs 
 // ── Step 3 ──────────────────────────────────────────────────────────────────
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle={`light-content`}/>
+<StatusBar barStyle={LIGHT_CONTENT}/>
 <Progress/>
 <ScrollView contentContainerStyle={{padding:24,paddingTop:40}}>
 <View style={{alignItems:`center`,marginBottom:32}}>
 <View style={{width:72,height:72,borderRadius:36,backgroundColor:C.gold,alignItems:`center`,justifyContent:`center`,marginBottom:16}}>
 <Text style={{fontSize:28,color:C.textInverse,fontWeight:`800`,fontFamily:FONT}}>S</Text>
 </View>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,marginBottom:8,fontFamily:FONT}}>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,marginBottom:8,fontFamily:FONT}}>
 Meet Squire{name?`, ${name.split(` `)[0]}.`:`.`}
 </Text>
 <Text style={{fontSize:14,color:C.textMuted,lineHeight:22,textAlign:`center`,fontFamily:FONT}}>
@@ -380,14 +397,14 @@ return (
 <ScrollView style={{flex:1}} contentContainerStyle={{padding:18}}>
 <View style={[s.gCard,{marginBottom:14}]}>
 <Text style={[s.label,{color:C.goldDim,marginBottom:4}]}>PILLAR & SQUIRE MEMBER</Text>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,letterSpacing:0.5,fontFamily:FONT,marginBottom:2}}>{player.name}</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,letterSpacing:0.5,fontFamily:FONT,marginBottom:2}}>{player.name}</Text>
 <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT,fontStyle:`italic`,marginBottom:20}}>
 {player.homeCourse?`Home: ${player.homeCourse.name}`:`Member since ${new Date().getFullYear()}`}
 </Text>
 <View style={{flexDirection:`row`,gap:28}}>
 <View>
 <Text style={[s.label,{color:C.gold,marginBottom:4}]}>HANDICAP</Text>
-<Text style={{fontSize:44,fontWeight:`700`,color:C.gold,lineHeight:48,fontFamily:FONT}}>
+<Text style={{fontSize:44,fontWeight:BOLD,color:C.gold,lineHeight:48,fontFamily:FONT}}>
 {displayHdcp!==null?displayHdcp:`—`}
 </Text>
 <Text style={{fontSize:9,color:C.textMuted,fontFamily:FONT}}>
@@ -396,12 +413,12 @@ return (
 </View>
 <View>
 <Text style={[s.label,{marginBottom:4}]}>ROUNDS</Text>
-<Text style={{fontSize:22,fontWeight:`600`,color:C.textPrimary,fontFamily:FONT}}>{rounds.length}</Text>
+<Text style={{fontSize:22,fontWeight:SEMI,color:C.textPrimary,fontFamily:FONT}}>{rounds.length}</Text>
 <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>posted</Text>
 </View>
 {rounds.length>0&&<View>
 <Text style={[s.label,{marginBottom:4}]}>LOW ROUND</Text>
-<Text style={{fontSize:22,fontWeight:`600`,color:C.birdie,fontFamily:FONT}}>{rounds.reduce((m,r)=>r.score<m?r.score:m, rounds[0].score)}</Text>
+<Text style={{fontSize:22,fontWeight:SEMI,color:C.birdie,fontFamily:FONT}}>{rounds.reduce((m,r)=>r.score<m?r.score:m, rounds[0].score)}</Text>
 <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>best</Text>
 </View>}
 </View>
@@ -411,7 +428,7 @@ return (
   <View style={[s.gCard,{marginBottom:14}]}>
     <View style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,marginBottom:12}}>
       <View>
-        <Text style={{fontSize:14,fontWeight:`700`,color:C.gold,fontFamily:FONT,marginBottom:2}}>Ready to play?</Text>
+        <Text style={{fontSize:14,fontWeight:BOLD,color:C.gold,fontFamily:FONT,marginBottom:2}}>Ready to play?</Text>
         <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT}}>Get Squire`s read before you tee off</Text>
       </View>
       <Text style={{fontSize:28}}>⛳</Text>
@@ -435,11 +452,11 @@ return (
     ):recent.map(r=>(
       <View key={r.id} style={[s.card,{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,borderLeftWidth:3,borderLeftColor:C.gold}]}>
         <View>
-          <Text style={{fontSize:13,fontWeight:`600`,color:C.textPrimary,fontFamily:FONT}}>{r.course.name}</Text>
-          <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{r.date} · Diff <Text style={{color:C.gold,fontWeight:`600`}}>{r.differential}</Text></Text>
+          <Text style={{fontSize:13,fontWeight:SEMI,color:C.textPrimary,fontFamily:FONT}}>{r.course.name}</Text>
+          <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{r.date} · Diff <Text style={{color:C.gold,fontWeight:SEMI}}>{r.differential}</Text></Text>
         </View>
         <View style={{alignItems:`flex-end`}}>
-          <Text style={{fontSize:24,fontWeight:`700`,color:scoreColor(r),fontFamily:FONT}}>{r.score}</Text>
+          <Text style={{fontSize:24,fontWeight:BOLD,color:scoreColor(r),fontFamily:FONT}}>{r.score}</Text>
           <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{tp(r)>0?`+${tp(r)}`:tp(r)===0?`E`:tp(r)}</Text>
         </View>
       </View>
@@ -475,13 +492,13 @@ return (
 <AddClubModal visible={showAddModal} onClose={()=>setShowAddModal(false)} onAdd={addClub} existingClubs={clubs}/>
 <View style={{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,marginBottom:14}}>
 <View>
-<Text style={{fontSize:16,fontWeight:`700`,color:C.textPrimary,fontFamily:FONT}}>My Bag</Text>
+<Text style={{fontSize:16,fontWeight:BOLD,color:C.textPrimary,fontFamily:FONT}}>My Bag</Text>
 <Text style={{fontSize:11,color:activeBag.length>14?C.bogey:C.textMuted,fontFamily:FONT}}>{activeBag.length}/14 clubs{activeBag.length>14?` — over limit`:EMPTY}</Text>
 </View>
 <TouchableOpacity onPress={()=>setShowAddModal(true)}
 style={{flexDirection:`row`,alignItems:`center`,gap:6,paddingHorizontal:14,paddingVertical:8,borderRadius:10,borderWidth:1,borderColor:C.borderGold,backgroundColor:C.goldFaint}}>
 <Text style={{fontSize:14,color:C.gold}}>+</Text>
-<Text style={{fontSize:12,color:C.gold,fontFamily:FONT,fontWeight:`600`}}>Add Club</Text>
+<Text style={{fontSize:12,color:C.gold,fontFamily:FONT,fontWeight:SEMI}}>Add Club</Text>
 </TouchableOpacity>
 </View>
 {GROUPS.map(({label,cats})=>{
@@ -524,11 +541,11 @@ return (
 ):sorted.map(r=>(
 <View key={r.id} style={[s.card,{flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`}]}>
 <View>
-<Text style={{fontSize:13,fontWeight:`600`,color:C.textPrimary,fontFamily:FONT}}>{r.course.name}</Text>
+<Text style={{fontSize:13,fontWeight:SEMI,color:C.textPrimary,fontFamily:FONT}}>{r.course.name}</Text>
 <Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{r.date}</Text>
 </View>
 <View style={{alignItems:`flex-end`}}>
-<Text style={{fontSize:22,fontWeight:`700`,color:r.score-r.course.par<=0?C.birdie:C.bogey,fontFamily:FONT}}>{r.score}</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:r.score-r.course.par<=0?C.birdie:C.bogey,fontFamily:FONT}}>{r.score}</Text>
 <Text style={{fontSize:10,color:C.gold,fontFamily:FONT}}>Diff {r.differential}</Text>
 </View>
 </View>
@@ -541,7 +558,7 @@ function RoundTab() {
 return (
 <View style={{flex:1,alignItems:`center`,justifyContent:`center`,padding:24}}>
 <Text style={{fontSize:40,marginBottom:16}}>⛳</Text>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,fontFamily:FONT,marginBottom:8}}>Round</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,fontFamily:FONT,marginBottom:8}}>Round</Text>
 <Text style={{fontSize:14,color:C.textMuted,fontFamily:FONT,textAlign:`center`}}>Full round tracking coming in the next build.</Text>
 </View>
 );
@@ -553,7 +570,7 @@ return (
 <View style={{width:72,height:72,borderRadius:36,backgroundColor:C.gold,alignItems:`center`,justifyContent:`center`,marginBottom:16}}>
 <Text style={{fontSize:28,color:C.textInverse,fontWeight:`800`,fontFamily:FONT}}>S</Text>
 </View>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.textPrimary,fontFamily:FONT,marginBottom:8}}>Squire</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,fontFamily:FONT,marginBottom:8}}>Squire</Text>
 <Text style={{fontSize:14,color:C.textMuted,fontFamily:FONT,textAlign:`center`,lineHeight:22}}>Full AI caddy chat coming in the next build.</Text>
 </View>
 );
@@ -593,19 +610,19 @@ if (activeTab===`Squire`)    return <SquireTab/>;
 
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
-<StatusBar barStyle={`light-content`}/>
+<StatusBar barStyle={LIGHT_CONTENT}/>
 <View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:`row`,justifyContent:`space-between`,alignItems:`center`,backgroundColor:`rgba(6,13,9,0.97)`}}>
 <View>
 <View style={{flexDirection:`row`,alignItems:`baseline`,gap:6}}>
-<Text style={{fontSize:17,fontWeight:`700`,letterSpacing:2,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
+<Text style={{fontSize:17,fontWeight:BOLD,letterSpacing:2,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
 <Text style={{color:C.goldDim,fontSize:12,fontFamily:FONT}}>&</Text>
-<Text style={{fontSize:17,fontWeight:`400`,letterSpacing:2,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
+<Text style={{fontSize:17,fontWeight:NORMAL,letterSpacing:2,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
 </View>
 <Text style={{fontSize:8,color:C.textMuted,letterSpacing:1.5,fontFamily:FONT}}>GOLF COMPANION · {player.name.toUpperCase()}</Text>
 </View>
 <View style={{alignItems:`flex-end`}}>
 <Text style={[s.label,{color:C.gold}]}>HDCP</Text>
-<Text style={{fontSize:22,fontWeight:`700`,color:C.gold,lineHeight:26,fontFamily:FONT}}>{displayHdcp!==null?displayHdcp:`—`}</Text>
+<Text style={{fontSize:22,fontWeight:BOLD,color:C.gold,lineHeight:26,fontFamily:FONT}}>{displayHdcp!==null?displayHdcp:`—`}</Text>
 </View>
 </View>
 <View style={{flex:1}}>{renderTab()}</View>
