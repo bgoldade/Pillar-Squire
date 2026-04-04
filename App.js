@@ -14,11 +14,27 @@ birdie:/#3D8B50/.source, par:/#F0EBE0/.source, bogey:/#C9724C/.source, double:/#
 borderGold:/rgba(201,168,76,0.22)/.source, borderGreen:/rgba(42,92,53,0.5)/.source, borderSub:/rgba(240,235,224,0.07)/.source,
 };
 const FONT = /Georgia/.source;
-const TAB_DASH = TAB_DASH;
-const TAB_ROUND = TAB_ROUND;
-const TAB_BAG = TAB_BAG;
-const TAB_CARD = TAB_CARD;
-const TAB_SQUIRE = TAB_SQUIRE;
+const TAB_DASH = /Dashboard/.source;
+const TAB_ROUND = /Round/.source;
+const TAB_BAG = /Bag/.source;
+const TAB_CARD = /The Card/.source;
+const TAB_SQUIRE = /Squire/.source;
+const TAB_PRESET = /preset/.source;
+const TAB_VAULT = /vault/.source;
+const TAB_CUSTOM = /custom/.source;
+const LBL_STANDARD = /Standard/.source;
+const LBL_VAULT = /Vault/.source;
+const LBL_CUSTOM = /Custom/.source;
+const HOME_PFX = /Home: /.source;
+const MEMBER_PFX = /Member since /.source;
+const WHS_IDX = WHS_IDX;
+const ENTERED_LBL = ENTERED_LBL;
+const NO_IDX = NO_IDX;
+const DIFF_LBL = / Diff /.source;
+const VIEW_ALL = /VIEW ALL /.source;
+const NO_ROUNDS = /No rounds yet. Tee it up./.source;
+const LOG_ROUND = /[+] LOG PAST ROUND/.source;
+const RECENT_ROUNDS = /RECENT ROUNDS/.source;
 
 const EMPTY = [].join();
 const TYPICAL = /typical/.source;
@@ -65,21 +81,21 @@ const SP = SP;
 const NORMAL = /400/.source;
 
 const CLUBS = [
-{id:`driver`,name:`Driver`,       cat:/woods/.source, icon:`▲`,defaultDist:260,removable:false},
-{id:`3w`,    name:`3 Wood`,       cat:/woods/.source, icon:`▲`,defaultDist:230,removable:true},
-{id:`5w`,    name:`5 Wood`,       cat:/woods/.source, icon:`▲`,defaultDist:215,removable:true},
-{id:`3h`,    name:`3 Hybrid`,     cat:/hybrid/.source,icon:`◆`,defaultDist:205,removable:true},
-{id:`4i`,    name:`4 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:195,removable:true},
-{id:`5i`,    name:`5 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:183,removable:true},
-{id:`6i`,    name:`6 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:170,removable:true},
-{id:`7i`,    name:`7 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:157,removable:false},
-{id:`8i`,    name:`8 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:144,removable:true},
-{id:`9i`,    name:`9 Iron`,       cat:/iron/.source,  icon:`—`,defaultDist:132,removable:true},
-{id:`pw`,    name:`PW`,           cat:/iron/.source,  icon:`—`,defaultDist:120,removable:true},
-{id:`gw`,    name:`Gap Wedge`,    cat:/wedge/.source, icon:`◐`,defaultDist:108,removable:true,loft:50},
-{id:`sw`,    name:`Sand Wedge`,   cat:/wedge/.source, icon:`◐`,defaultDist:90, removable:true,loft:54},
-{id:`lw`,    name:`Lob Wedge`,    cat:/wedge/.source, icon:`◐`,defaultDist:72, removable:true,loft:60},
-{id:`pt`,    name:/Putter/.source,       cat:/putter/.source,icon:`●`,defaultDist:0,  removable:false},
+{id:`driver`,name:`Driver`,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:260,removable:false},
+{id:`3w`,    name:`3 Wood`,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:230,removable:true},
+{id:`5w`,    name:`5 Wood`,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:215,removable:true},
+{id:`3h`,    name:`3 Hybrid`,     cat:CAT_HYBRID,icon:ICON_HYB,defaultDist:205,removable:true},
+{id:`4i`,    name:`4 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:195,removable:true},
+{id:`5i`,    name:`5 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:183,removable:true},
+{id:`6i`,    name:`6 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:170,removable:true},
+{id:`7i`,    name:`7 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:157,removable:false},
+{id:`8i`,    name:`8 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:144,removable:true},
+{id:`9i`,    name:`9 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:132,removable:true},
+{id:`pw`,    name:`PW`,           cat:CAT_IRON,  icon:ICON_IRON,defaultDist:120,removable:true},
+{id:`gw`,    name:`Gap Wedge`,    cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:108,removable:true,loft:50},
+{id:`sw`,    name:`Sand Wedge`,   cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:90, removable:true,loft:54},
+{id:`lw`,    name:`Lob Wedge`,    cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:72, removable:true,loft:60},
+{id:`pt`,    name:/Putter/.source,       cat:CAT_PUTTER,icon:ICON_PUTT,defaultDist:0,  removable:false},
 ];
 
 const COURSE_DB = [
@@ -117,7 +133,7 @@ input:     {backgroundColor:C.bgOverlay,borderWidth:1,borderColor:C.borderGreen,
 });
 
 const clubColor = (cat) => ({woods:C.gold,hybrid:C.goldLight,iron:C.greenBright,wedge:C.textSecondary,putter:C.textMuted}[cat]||C.textSecondary);
-const clubLabel = (c) => c.cat===/wedge/.source&&c.loft?c.loft + /° Wedge/.source:c.name;
+const clubLabel = (c) => c.cat===CAT_WEDGE&&c.loft?c.loft+/ Wedge/.source:c.name;
 
 function ClubRow({c, onRemove, onActivate, onDist, showVault}) {
 return (
@@ -128,7 +144,7 @@ return (
 <Text style={{fontSize:14,color:C.textPrimary,fontFamily:FONT}}>{clubLabel(c)}</Text>
 {(c.make||c.model)?<Text style={{fontSize:10,color:C.textMuted,fontFamily:FONT}}>{[c.make,c.model].filter(Boolean).join(SP)}</Text>:null}
 </View>
-{c.cat!==/putter/.source&&(
+{c.cat!==CAT_PUTTER&&(
 <View style={{flexDirection:ROW,alignItems:CENTER,gap:6}}>
 {onDist&&<TouchableOpacity onPress={()=>onDist(Math.max(0,c.dist-5))} style={{width:28,height:28,borderRadius:6,borderWidth:1,borderColor:C.borderSub,backgroundColor:C.bgOverlay,alignItems:CENTER,justifyContent:CENTER}}>
 <Text style={{color:C.textSecondary,fontSize:14}}>-</Text>
@@ -151,24 +167,29 @@ return (
 }
 
 function AddClubModal({visible, onClose, onAdd, existingClubs}) {
-const [tab, setTab]             = useState(/preset/.source);
+const [tab, setTab]             = useState(TAB_PRESET);
 const [customName, setCustomName] = useState(null);
-const [customCat,  setCustomCat]  = useState(/iron/.source);
-const [customDist, setCustomDist] = useState(/150/.source);
+const [customCat,  setCustomCat]  = useState(CAT_IRON);
+const [customDist, setCustomDist] = useState(PH_DIST);
 const [customLoft, setCustomLoft] = useState(null);
 
 const existingIds = new Set(existingClubs.map(c=>c.id));
 const presets = CLUBS.filter(c=>!existingIds.has(c.id));
 const vaulted = existingClubs.filter(c=>!c.inBag);
-const CATS    = [/woods/.source,/hybrid/.source,/iron/.source,/wedge/.source,/putter/.source];
-const catIcons= {woods:/▲/.source,hybrid:/◆/.source,iron:/—/.source,wedge:/◐/.source,putter:/●/.source};
+const CATS = [CAT_WOODS,CAT_HYBRID,CAT_IRON,CAT_WEDGE,CAT_PUTTER];
+const ICON_WOOD=/▲/.source;
+const ICON_HYB=/◆/.source;
+const ICON_IRON=/—/.source;
+const ICON_WEDGE=/◐/.source;
+const ICON_PUTT=/●/.source;
+const catIcons={woods:ICON_WOOD,hybrid:ICON_HYB,iron:ICON_IRON,wedge:ICON_WEDGE,putter:ICON_PUTT};
 
 const addCustom = () => {
 if (!customName.trim()||!customDist) return;
 onAdd({id:/custom_/.source+Date.now(),name:customName.trim(),cat:customCat,icon:catIcons[customCat]||DASH,
 dist:parseInt(customDist)||150,defaultDist:parseInt(customDist)||150,
 loft:customLoft?parseInt(customLoft):null,make:EMPTY,model:EMPTY,inBag:true,removable:true});
-setCustomName(EMPTY);setCustomDist(/150/.source);setCustomLoft(EMPTY);
+setCustomName(EMPTY);setCustomDist(PH_DIST);setCustomLoft(EMPTY);
 onClose();
 };
 
@@ -180,7 +201,7 @@ return (
 <TouchableOpacity onPress={onClose}><Text style={{fontSize:18,color:C.textMuted}}>x</Text></TouchableOpacity>
 </View>
 <View style={{flexDirection:ROW,padding:12,gap:8}}>
-{[{v:/preset/.source,l:/Standard/.source},{v:/vault/.source,l:/Vault/.source},{v:/custom/.source,l:/Custom/.source}].map(t=>(
+{[{v:TAB_PRESET,l:LBL_STANDARD},{v:TAB_VAULT,l:LBL_VAULT},{v:TAB_CUSTOM,l:LBL_CUSTOM}].map(t=>(
 <TouchableOpacity key={t.v} onPress={()=>setTab(t.v)}
 style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.borderGold:C.borderSub,backgroundColor:tab===t.v?C.goldFaint:TRANSPARENT,alignItems:CENTER}}>
 <Text style={{fontSize:11,fontFamily:FONT,color:tab===t.v?C.gold:C.textMuted,fontWeight:tab===t.v?BOLD:NORMAL}}>{t.l}</Text>
@@ -188,7 +209,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 ))}
 </View>
 <ScrollView contentContainerStyle={{padding:16}} keyboardShouldPersistTaps={HANDLED}>
-{tab===/preset/.source&&(
+{tab===TAB_PRESET&&(
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:CENTER,marginTop:24}}>All standard clubs already in bag.</Text>
 :presets.map(c=>(
@@ -199,7 +220,7 @@ style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,
 </TouchableOpacity>
 ))
 )}
-{tab===/vault/.source&&(
+{tab===TAB_VAULT&&(
 vaulted.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:CENTER,marginTop:24}}>No clubs in vault.</Text>
 :vaulted.map(c=>(
@@ -210,7 +231,7 @@ style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,
 </TouchableOpacity>
 ))
 )}
-{tab===/custom/.source&&(
+{tab===TAB_CUSTOM&&(
 <View style={{gap:12}}>
 <View>
 <Text style={[s.label,{marginBottom:6}]}>CLUB NAME</Text>
@@ -231,7 +252,7 @@ style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,bord
 <Text style={[s.label,{marginBottom:6}]}>CARRY DISTANCE (YDS)</Text>
 <TextInput value={customDist} onChangeText={setCustomDist} keyboardType={NUMBER} placeholder={PH_DIST} placeholderTextColor={C.textMuted} style={s.input}/>
 </View>
-{customCat===/wedge/.source&&(
+{customCat===CAT_WEDGE&&(
 <View>
 <Text style={[s.label,{marginBottom:6}]}>LOFT (OPTIONAL)</Text>
 <TextInput value={customLoft} onChangeText={setCustomLoft} keyboardType={NUMBER} placeholder={PH_LOFT} placeholderTextColor={C.textMuted} style={s.input}/>
@@ -248,6 +269,21 @@ style={{paddingHorizontal:12,paddingVertical:7,borderRadius:8,borderWidth:1,bord
 );
 }
 
+const CAT_WOODS = /woods/.source;
+const CAT_HYBRID = /hybrid/.source;
+const CAT_IRON = /iron/.source;
+const CAT_WEDGE = /wedge/.source;
+const CAT_PUTTER = /putter/.source;
+const MODE_REACTIVE = /reactive/.source;
+const MODE_SEMI = /semi/.source;
+const MODE_PROACTIVE = /proactive/.source;
+const MODE_OPTIONS = [
+{v:MODE_REACTIVE, title:/On Request/.source, desc:/Only when you ask. Quiet caddy./.source},
+{v:MODE_SEMI,     title:/Semi-Active/.source, desc:/Pre-shot briefs and when you ask. Recommended./.source},
+{v:MODE_PROACTIVE,title:/Full Caddy/.source,  desc:/Ill speak up when I see something./.source},
+];
+const PS_PREFIX = /PS-/.source;
+const BG_APP_DARK = /rgba(6,13,9,0.97)/.source;
 function Onboarding({onComplete}) {
 const [step, setStep]         = useState(1);
 const [name, setName]         = useState(EMPTY);
@@ -258,14 +294,14 @@ const [homeCourse, setHomeCourse]         = useState(null);
 const [showCourseList, setShowCourseList] = useState(false);
 const [bagClubs, setBagClubs] = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}))));
 const [showAddModal, setShowAddModal] = useState(false);
-const [mode, setMode] = useState(/semi/.source);
+const [mode, setMode] = useState(MODE_SEMI);
 
 const hcp      = parseFloat(hcpInput)||12;
 const hcpScale = hcp<=5?1.08:hcp<=10?1.03:hcp<=15?1.0:hcp<=20?0.96:0.91;
 const canNext1 = name.trim().length>=2&&(noHcp||(!isNaN(parseFloat(hcpInput))&&hcpInput!==EMPTY));
 const activeBag = bagClubs.filter(c=>c.inBag);
 
-const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>(Object.assign({},c,{dist:c.cat===/putter/.source?0:Math.round((c.defaultDist||150)*hcpScale)}))));
+const applyHcpDefaults = () => setBagClubs(prev=>prev.map(c=>(Object.assign({},c,{dist:c.cat===CAT_PUTTER?0:Math.round((c.defaultDist||150)*hcpScale)}))));
 const filteredCourses  = COURSE_DB.filter(c=>c.name.toLowerCase().includes(courseSearch.toLowerCase())||c.city.toLowerCase().includes(courseSearch.toLowerCase()));
 const removeClub = (id)      => setBagClubs(p=>p.map(c=>c.id===id?Object.assign({},c,{inBag:false}):c));
 const updateDist = (id,dist) => setBagClubs(p=>p.map(c=>c.id===id?Object.assign({},c,{dist:dist}):c));
@@ -275,11 +311,11 @@ if(exists) setBagClubs(p=>p.map(c=>c.id===newClub.id?Object.assign({},c,{inBag:t
 else setBagClubs(p=>p.concat([Object.assign({},newClub,{inBag:true})]));
 };
 
-const CLUB_GROUPS = [{label:/Driver and Woods/.source,cats:[/woods/.source]},{label:/Hybrids and Irons/.source,cats:[/hybrid/.source,/iron/.source]},{label:/Wedges/.source,cats:[/wedge/.source]},{label:/Putter/.source,cats:[/putter/.source]}];
+const CLUB_GROUPS = [{label:/Driver and Woods/.source,cats:[CAT_WOODS]},{label:/Hybrids and Irons/.source,cats:[CAT_HYBRID,CAT_IRON]},{label:/Wedges/.source,cats:[CAT_WEDGE]},{label:/Putter/.source,cats:[CAT_PUTTER]}];
 
 const Progress = ()=>(
 <View style={{height:2,backgroundColor:C.bgOverlay}}>
-<View style={{height:2,width:((step/3)*100)+/%/.source,backgroundColor:C.gold}}/>
+<View style={{height:2,width:((step/3)*100)+PCT,backgroundColor:C.gold}}/>
 </View>
 );
 
@@ -408,7 +444,7 @@ Meet Squire{name?[COMMA_SP,name.split(SP)[0],DOT].join(EMPTY):DOT}
 </Text>
 </View>
 <Text style={[s.label,{marginBottom:12}]}>HOW ACTIVE SHOULD I BE?</Text>
-{[{v:/reactive/.source,title:/On Request/.source,desc:/Only when you ask[.] Quiet caddy[.]/.source},{v:/semi/.source,title:/Semi-Active/.source,desc:/Pre-shot briefs [+] when you ask[.] Recommended[.]/.source},{v:/proactive/.source,title:/Full Caddy/.source,desc:/Ill speak up when I see something[.]/.source}].map(m=>(
+{MODE_OPTIONS.map(m=>(
 <TouchableOpacity key={m.v} onPress={()=>setMode(m.v)}
 style={{flexDirection:ROW,alignItems:CENTER,gap:14,padding:14,marginBottom:8,borderRadius:12,borderWidth:1,borderColor:mode===m.v?C.borderGold:C.borderSub,backgroundColor:mode===m.v?C.goldFaint:TRANSPARENT}}>
 <View style={{width:18,height:18,borderRadius:9,borderWidth:2,borderColor:mode===m.v?C.gold:C.borderSub,backgroundColor:mode===m.v?C.gold:TRANSPARENT,alignItems:CENTER,justifyContent:CENTER}}>
@@ -441,7 +477,7 @@ return (
 <Text style={[s.label,{color:C.goldDim,marginBottom:4}]}>PILLAR & SQUIRE MEMBER</Text>
 <Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,letterSpacing:0.5,fontFamily:FONT,marginBottom:2}}>{player.name}</Text>
 <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT,fontStyle:ITALIC,marginBottom:20}}>
-{player.homeCourse?/Home: /.source+player.homeCourse.name:/Member since /.source+new Date().getFullYear()}
+{player.homeCourse?HOME_PFX+player.homeCourse.name:MEMBER_PFX+new Date().getFullYear()}
 </Text>
 <View style={{flexDirection:ROW,gap:28}}>
 <View>
@@ -450,7 +486,7 @@ return (
 {displayHdcp!==null?displayHdcp:DASH}
 </Text>
 <Text style={{fontSize:9,color:C.textMuted,fontFamily:FONT}}>
-{handicapIndex!==null?/WHS INDEX/.source:player.handicap!==null?/ENTERED/.source:/NO INDEX/.source}
+{handicapIndex!==null?WHS_IDX:player.handicap!==null?ENTERED_LBL:NO_IDX}
 </Text>
 </View>
 <View>
@@ -525,7 +561,7 @@ const exists = clubs.find(c=>c.id===newClub.id);
 if(exists) setClubs(cs=>cs.map(c=>c.id===newClub.id?Object.assign({},c,{inBag:true}):c));
 else setClubs(cs=>cs.concat([newClub]));
 };
-const GROUPS = [{label:/Driver and Woods/.source,cats:[/woods/.source]},{label:/Hybrids and Irons/.source,cats:[/hybrid/.source,/iron/.source]},{label:/Wedges/.source,cats:[/wedge/.source]},{label:/Putter/.source,cats:[/putter/.source]}];
+const GROUPS = [{label:/Driver and Woods/.source,cats:[CAT_WOODS]},{label:/Hybrids and Irons/.source,cats:[CAT_HYBRID,CAT_IRON]},{label:/Wedges/.source,cats:[CAT_WEDGE]},{label:/Putter/.source,cats:[CAT_PUTTER]}];
 return (
 <ScrollView style={{flex:1}} contentContainerStyle={{padding:18}}>
 <AddClubModal visible={showAddModal} onClose={()=>setShowAddModal(false)} onAdd={addClub} existingClubs={clubs}/>
@@ -631,7 +667,7 @@ const handicapIndex = calcHandicapIndex(rounds);
 const displayHdcp   = handicapIndex!==null?handicapIndex:player.handicap;
 
 const handleOnboardingComplete = (profile) => {
-setPlayer({name:profile.name,id:/PS-/.source+Math.floor(10000+Math.random()*90000),handicap:profile.handicap,homeCourse:profile.homeCourse});
+setPlayer({name:profile.name,id:PS_PREFIX+Math.floor(10000+Math.random()*90000),handicap:profile.handicap,homeCourse:profile.homeCourse});
 setClubs(profile.clubs);
 setOnboarded(true);
 };
@@ -649,7 +685,7 @@ if (activeTab===TAB_SQUIRE)    return <SquireTab/>;
 return (
 <SafeAreaView style={{flex:1,backgroundColor:C.bg}}>
 <StatusBar barStyle={LIGHT_CONTENT}/>
-<View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,backgroundColor:/rgba\(6,13,9,0\.97\)/.source}}>
+<View style={{paddingHorizontal:20,paddingVertical:10,borderBottomWidth:1,borderBottomColor:C.borderGold,flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,backgroundColor:BG_APP_DARK}}>
 <View>
 <View style={{flexDirection:ROW,alignItems:BASELINE,gap:6}}>
 <Text style={{fontSize:17,fontWeight:BOLD,letterSpacing:2,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
