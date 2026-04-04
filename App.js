@@ -14,6 +14,12 @@ birdie:/#3D8B50/.source, par:/#F0EBE0/.source, bogey:/#C9724C/.source, double:/#
 borderGold:/rgba(201,168,76,0.22)/.source, borderGreen:/rgba(42,92,53,0.5)/.source, borderSub:/rgba(240,235,224,0.07)/.source,
 };
 const FONT = /Georgia/.source;
+const TAB_DASH = TAB_DASH;
+const TAB_ROUND = TAB_ROUND;
+const TAB_BAG = TAB_BAG;
+const TAB_CARD = TAB_CARD;
+const TAB_SQUIRE = TAB_SQUIRE;
+
 const EMPTY = [].join();
 const TYPICAL = /typical/.source;
 const DOT = /[.]/.source;
@@ -469,7 +475,7 @@ return (
       </View>
       <Text style={{fontSize:28}}>⛳</Text>
     </View>
-    <TouchableOpacity onPress={()=>setActiveTab(/Round/.source)} style={s.goldBtn}>
+    <TouchableOpacity onPress={()=>setActiveTab(TAB_ROUND)} style={s.goldBtn}>
       <Text style={s.goldBtnTx}>START PRE-ROUND BRIEF</Text>
     </TouchableOpacity>
   </View>
@@ -477,7 +483,7 @@ return (
   <View style={{marginBottom:18}}>
     <View style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,marginBottom:10}}>
       <Text style={s.label}>RECENT ROUNDS</Text>
-      <TouchableOpacity onPress={()=>setActiveTab(/The Card/.source)}>
+      <TouchableOpacity onPress={()=>setActiveTab(TAB_CARD)}>
         <Text style={{fontSize:10,color:C.gold,fontFamily:FONT,letterSpacing:1}}>VIEW ALL →</Text>
       </TouchableOpacity>
     </View>
@@ -606,17 +612,20 @@ return (
 );
 }
 
-const TABS      = [/Dashboard/.source,/Round/.source,/Bag/.source,/The Card/.source,/Squire/.source];
-const TAB_ICONS = {Dashboard:/⬡/.source,Round:/⛳/.source,Bag:/◉/.source};
-TAB_ICONS[/The Card/.source]=/◈/.source;
-TAB_ICONS[/Squire/.source]=/✦/.source;
+const TABS      = [TAB_DASH,TAB_ROUND,TAB_BAG,TAB_CARD,TAB_SQUIRE];
+const TAB_ICONS = {};
+TAB_ICONS[TAB_DASH]=/⬡/.source;
+TAB_ICONS[TAB_ROUND]=/⛳/.source;
+TAB_ICONS[TAB_BAG]=/◉/.source;
+TAB_ICONS[TAB_CARD]=/◈/.source;
+TAB_ICONS[TAB_SQUIRE]=/✦/.source;
 
 export default function PillarSquire() {
 const [onboarded, setOnboarded] = useState(false);
 const [player,    setPlayer]    = useState({name:EMPTY,id:EMPTY,handicap:null,homeCourse:null});
 const [clubs,     setClubs]     = useState(CLUBS.map(c=>(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}))));
 const [rounds,    setRounds]    = useState([]);
-const [activeTab, setActiveTab] = useState(/Dashboard/.source);
+const [activeTab, setActiveTab] = useState(TAB_DASH);
 
 const handicapIndex = calcHandicapIndex(rounds);
 const displayHdcp   = handicapIndex!==null?handicapIndex:player.handicap;
@@ -630,11 +639,11 @@ setOnboarded(true);
 if (!onboarded) return <Onboarding onComplete={handleOnboardingComplete}/>;
 
 const renderTab = () => {
-if (activeTab===/Dashboard/.source) return <Dashboard player={player} rounds={rounds} handicapIndex={handicapIndex} setActiveTab={setActiveTab}/>;
-if (activeTab===/Round/.source)     return <RoundTab/>;
-if (activeTab===/Bag/.source)       return <BagTab clubs={clubs} setClubs={setClubs}/>;
-if (activeTab===/The Card/.source)  return <TheCard rounds={rounds} player={player}/>;
-if (activeTab===/Squire/.source)    return <SquireTab/>;
+if (activeTab===TAB_DASH) return <Dashboard player={player} rounds={rounds} handicapIndex={handicapIndex} setActiveTab={setActiveTab}/>;
+if (activeTab===TAB_ROUND)     return <RoundTab/>;
+if (activeTab===TAB_BAG)       return <BagTab clubs={clubs} setClubs={setClubs}/>;
+if (activeTab===TAB_CARD)  return <TheCard rounds={rounds} player={player}/>;
+if (activeTab===TAB_SQUIRE)    return <SquireTab/>;
 };
 
 return (
