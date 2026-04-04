@@ -221,7 +221,7 @@ style={{flex:1,padding:9,borderRadius:9,borderWidth:1,borderColor:tab===t.v?C.bo
 presets.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:CENTER,marginTop:24}}>All standard clubs already in bag.</Text>
 :presets.map(c=>(
-<TouchableOpacity key={c.id} onPress={()=>{onAdd({…c,dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY});onClose();}}
+<TouchableOpacity key={c.id} onPress={()=>{onAdd(Object.assign({},c,{dist:c.defaultDist,inBag:true,make:EMPTY,model:EMPTY}));onClose();}}
 style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,backgroundColor:C.bgSurface,borderRadius:10,borderWidth:1,borderColor:C.borderGreen,marginBottom:6}}>
 <Text style={{fontSize:13,color:C.textPrimary,fontFamily:FONT}}>{c.name}</Text>
 <Text style={{fontSize:11,color:C.gold,fontFamily:FONT}}>{c.defaultDist}y + Add</Text>
@@ -232,7 +232,7 @@ style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,
 vaulted.length===0
 ?<Text style={{color:C.textMuted,fontFamily:FONT,textAlign:CENTER,marginTop:24}}>No clubs in vault.</Text>
 :vaulted.map(c=>(
-<TouchableOpacity key={c.id} onPress={()=>{onAdd({…c,inBag:true});onClose();}}
+<TouchableOpacity key={c.id} onPress={()=>{onAdd(Object.assign({},c,{inBag:true}));onClose();}}
 style={{flexDirection:ROW,justifyContent:SPACE_BTW,alignItems:CENTER,padding:13,backgroundColor:C.bgSurface,borderRadius:10,borderWidth:1,borderColor:C.borderGreen,marginBottom:6}}>
 <Text style={{fontSize:13,color:C.textPrimary,fontFamily:FONT}}>{clubLabel(c)}</Text>
 <Text style={{fontSize:11,color:C.gold,fontFamily:FONT}}>+ Add back</Text>
