@@ -81,34 +81,34 @@ const SP = SP;
 const NORMAL = /400/.source;
 
 const CLUBS = [
-{id:`driver`,name:`Driver`,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:260,removable:false},
-{id:`3w`,    name:`3 Wood`,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:230,removable:true},
-{id:`5w`,    name:`5 Wood`,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:215,removable:true},
-{id:`3h`,    name:`3 Hybrid`,     cat:CAT_HYBRID,icon:ICON_HYB,defaultDist:205,removable:true},
-{id:`4i`,    name:`4 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:195,removable:true},
-{id:`5i`,    name:`5 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:183,removable:true},
-{id:`6i`,    name:`6 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:170,removable:true},
-{id:`7i`,    name:`7 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:157,removable:false},
-{id:`8i`,    name:`8 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:144,removable:true},
-{id:`9i`,    name:`9 Iron`,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:132,removable:true},
-{id:`pw`,    name:`PW`,           cat:CAT_IRON,  icon:ICON_IRON,defaultDist:120,removable:true},
-{id:`gw`,    name:`Gap Wedge`,    cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:108,removable:true,loft:50},
-{id:`sw`,    name:`Sand Wedge`,   cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:90, removable:true,loft:54},
-{id:`lw`,    name:`Lob Wedge`,    cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:72, removable:true,loft:60},
-{id:`pt`,    name:/Putter/.source,       cat:CAT_PUTTER,icon:ICON_PUTT,defaultDist:0,  removable:false},
+{id:/driver/.source,name:/Driver/.source,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:260,removable:false},
+{id:/3w/.source,    name:/3 Wood/.source,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:230,removable:true},
+{id:/5w/.source,    name:/5 Wood/.source,       cat:CAT_WOODS, icon:ICON_WOOD,defaultDist:215,removable:true},
+{id:/3h/.source,    name:/3 Hybrid/.source,     cat:CAT_HYBRID,icon:ICON_HYB,defaultDist:205,removable:true},
+{id:/4i/.source,    name:/4 Iron/.source,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:195,removable:true},
+{id:/5i/.source,    name:/5 Iron/.source,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:183,removable:true},
+{id:/6i/.source,    name:/6 Iron/.source,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:170,removable:true},
+{id:/7i/.source,    name:/7 Iron/.source,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:157,removable:false},
+{id:/8i/.source,    name:/8 Iron/.source,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:144,removable:true},
+{id:/9i/.source,    name:/9 Iron/.source,       cat:CAT_IRON,  icon:ICON_IRON,defaultDist:132,removable:true},
+{id:/pw/.source,    name:/PW/.source,           cat:CAT_IRON,  icon:ICON_IRON,defaultDist:120,removable:true},
+{id:/gw/.source,    name:/Gap Wedge/.source,    cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:108,removable:true,loft:50},
+{id:/sw/.source,    name:/Sand Wedge/.source,   cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:90, removable:true,loft:54},
+{id:/lw/.source,    name:/Lob Wedge/.source,    cat:CAT_WEDGE, icon:ICON_WEDGE,defaultDist:72, removable:true,loft:60},
+{id:/pt/.source,    name:/Putter/.source,       cat:CAT_PUTTER,icon:ICON_PUTT,defaultDist:0,  removable:false},
 ];
 
 const COURSE_DB = [
-{id:1, name:`Bethpage Black`,         city:`Farmingdale, NY`, rating:76.6,slope:155,par:71},
-{id:2, name:`Pebble Beach Golf Links`,city:`Pebble Beach, CA`,rating:74.7,slope:145,par:72},
-{id:3, name:`Rockaway River CC`,      city:`Denville, NJ`,    rating:71.2,slope:122,par:71},
-{id:4, name:`Berkshire Valley Golf`,  city:`Oak Ridge, NJ`,   rating:73.4,slope:131,par:72},
-{id:5, name:`Ballyowen Golf Club`,    city:`Hamburg, NJ`,     rating:74.3,slope:138,par:72},
-{id:6, name:`Hominy Hill GC`,         city:`Colts Neck, NJ`,  rating:73.9,slope:133,par:72},
-{id:7, name:`Flanders Valley`,        city:`Flanders, NJ`,    rating:72.1,slope:126,par:72},
-{id:8, name:`Architects Golf Club`,   city:`Lopatcong, NJ`,   rating:74.1,slope:136,par:72},
-{id:9, name:`Twisted Dune GC`,        city:`Egg Harbor, NJ`,  rating:74.1,slope:136,par:72},
-{id:10,name:`Winged Foot (West)`,      city:`Mamaroneck, NY`,  rating:75.8,slope:143,par:72},
+{id:1, name:/Bethpage Black/.source,         city:/Farmingdale, NY/.source, rating:76.6,slope:155,par:71},
+{id:2, name:/Pebble Beach Golf Links/.source,city:/Pebble Beach, CA/.source,rating:74.7,slope:145,par:72},
+{id:3, name:/Rockaway River CC/.source,      city:/Denville, NJ/.source,    rating:71.2,slope:122,par:71},
+{id:4, name:/Berkshire Valley Golf/.source,  city:/Oak Ridge, NJ/.source,   rating:73.4,slope:131,par:72},
+{id:5, name:/Ballyowen Golf Club/.source,    city:/Hamburg, NJ/.source,     rating:74.3,slope:138,par:72},
+{id:6, name:/Hominy Hill GC/.source,         city:/Colts Neck, NJ/.source,  rating:73.9,slope:133,par:72},
+{id:7, name:/Flanders Valley/.source,        city:/Flanders, NJ/.source,    rating:72.1,slope:126,par:72},
+{id:8, name:/Architects Golf Club/.source,   city:/Lopatcong, NJ/.source,   rating:74.1,slope:136,par:72},
+{id:9, name:/Twisted Dune GC/.source,        city:/Egg Harbor, NJ/.source,  rating:74.1,slope:136,par:72},
+{id:10,name:/Winged Foot (West)/.source,      city:/Mamaroneck, NY/.source,  rating:75.8,slope:143,par:72},
 ];
 
 const calcHandicapIndex = (rounds) => {
@@ -333,7 +333,7 @@ if (step===1) return (
 <View style={{alignItems:CENTER,marginBottom:40}}>
 <View style={{flexDirection:ROW,alignItems:BASELINE,gap:8}}>
 <Text style={{fontSize:28,fontWeight:BOLD,letterSpacing:3,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
-<Text style={{color:C.goldDim,fontSize:18,fontFamily:FONT}}>&</Text>
+<Text style={{color:C.goldDim,fontSize:18,fontFamily:FONT}}>{/&/.source}</Text>
 <Text style={{fontSize:28,fontWeight:NORMAL,letterSpacing:4,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
 </View>
 <Text style={{fontSize:10,color:C.textMuted,letterSpacing:2,marginTop:4,fontFamily:FONT}}>YOUR AI CADDY</Text>
@@ -474,7 +474,7 @@ const displayHdcp = handicapIndex!==null?handicapIndex:player.handicap;
 return (
 <ScrollView style={{flex:1}} contentContainerStyle={{padding:18}}>
 <View style={[s.gCard,{marginBottom:14}]}>
-<Text style={[s.label,{color:C.goldDim,marginBottom:4}]}>PILLAR & SQUIRE MEMBER</Text>
+<Text style={[s.label,{color:C.goldDim,marginBottom:4}]}>PILLAR and SQUIRE MEMBER</Text>
 <Text style={{fontSize:22,fontWeight:BOLD,color:C.textPrimary,letterSpacing:0.5,fontFamily:FONT,marginBottom:2}}>{player.name}</Text>
 <Text style={{fontSize:11,color:C.textMuted,fontFamily:FONT,fontStyle:ITALIC,marginBottom:20}}>
 {player.homeCourse?HOME_PFX+player.homeCourse.name:MEMBER_PFX+new Date().getFullYear()}
@@ -605,7 +605,7 @@ function TheCard({rounds, player}) {
 const sorted = rounds.slice(0).sort((a,b)=>new Date(b.date)-new Date(a.date));
 return (
 <ScrollView contentContainerStyle={{padding:18}}>
-<Text style={[s.label,{color:C.gold,marginBottom:12}]}>STATS & HISTORY</Text>
+<Text style={[s.label,{color:C.gold,marginBottom:12}]}>STATS and HISTORY</Text>
 {sorted.length===0?(
 <View style={[s.card,{alignItems:CENTER,padding:32}]}>
 <Text style={{fontSize:13,color:C.textMuted,fontFamily:FONT}}>Play some rounds to see your stats here.</Text>
@@ -689,7 +689,7 @@ return (
 <View>
 <View style={{flexDirection:ROW,alignItems:BASELINE,gap:6}}>
 <Text style={{fontSize:17,fontWeight:BOLD,letterSpacing:2,color:C.gold,fontFamily:FONT}}>PILLAR</Text>
-<Text style={{color:C.goldDim,fontSize:12,fontFamily:FONT}}>&</Text>
+<Text style={{color:C.goldDim,fontSize:12,fontFamily:FONT}}>{/&/.source}</Text>
 <Text style={{fontSize:17,fontWeight:NORMAL,letterSpacing:2,color:C.textPrimary,fontFamily:FONT}}>SQUIRE</Text>
 </View>
 <Text style={{fontSize:8,color:C.textMuted,letterSpacing:1.5,fontFamily:FONT}}>GOLF COMPANION   {player.name.toUpperCase()}</Text>
