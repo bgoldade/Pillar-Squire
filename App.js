@@ -39,14 +39,14 @@ const HANDLED = /handled/.source;
 const DECIMAL = /decimal-pad/.source;
 const NUMBER = /number-pad/.source;
 const TYPICAL = /typical/.source;
-const DOT = /./.source;
+const DOT = String.fromCharCode(46);
 const COMMA_SP = /, /.source;
-const PLUS = /+/.source;
+const PLUS = String.fromCharCode(43);
 const E_PAR = /E/.source;
-const DASH = /\u2014/.source;
+const DASH = String.fromCharCode(8212);
 const FRIEND = /friend/.source;
 const SP = / /.source;
-const PCT = /%/.source;
+const PCT = String.fromCharCode(37);
 const OVER_LIMIT = / - over limit/.source;
 const WHS_IDX = /WHS INDEX/.source;
 const ENTERED_LBL = /ENTERED/.source;
@@ -74,11 +74,11 @@ const MODE_REACTIVE = /reactive/.source;
 const MODE_SEMI = /semi/.source;
 const MODE_PROACTIVE = /proactive/.source;
 const PS_PREFIX = /PS-/.source;
-const ICON_WOOD = /\u25b2/.source;
-const ICON_HYB = /\u25c6/.source;
-const ICON_IRON = /\u2014/.source;
-const ICON_WEDGE = /\u25d0/.source;
-const ICON_PUTT = /\u25cf/.source;
+const ICON_WOOD = String.fromCharCode(9650);
+const ICON_HYB = String.fromCharCode(9670);
+const ICON_IRON = String.fromCharCode(8212);
+const ICON_WEDGE = String.fromCharCode(9680);
+const ICON_PUTT = String.fromCharCode(9679);
 const PH_NAME = /First name or nickname/.source;
 const PH_HCP = /e.g. 8.4/.source;
 const PH_COURSE = /Search your course/.source;
@@ -145,7 +145,7 @@ input:     {backgroundColor:C.bgOverlay, borderWidth:1, borderColor:C.borderGree
 });
 
 const clubColor = (cat) => ({[CAT_WOODS]:C.gold,[CAT_HYBRID]:C.goldLight,[CAT_IRON]:C.greenBright,[CAT_WEDGE]:C.textSecondary,[CAT_PUTTER]:C.textMuted}[cat]||C.textSecondary);
-const clubLabel = (c) => c.cat===CAT_WEDGE&&c.loft ? c.loft+/\u00b0 Wedge/.source : c.name;
+const clubLabel = (c) => c.cat===CAT_WEDGE&&c.loft ? c.loft+String.fromCharCode(176)+/ Wedge/.source : c.name;
 
 function ClubRow({c, onRemove, onActivate, onDist, showVault}) {
 return (
@@ -159,7 +159,7 @@ return (
 {c.cat!==CAT_PUTTER&&(
 <View style={{flexDirection:ROW,alignItems:CENTER,gap:6}}>
 {onDist&&<TouchableOpacity onPress={()=>onDist(Math.max(0,c.dist-5))} style={{width:28,height:28,borderRadius:6,borderWidth:1,borderColor:C.borderSub,backgroundColor:C.bgOverlay,alignItems:CENTER,justifyContent:CENTER}}>
-<Text style={{color:C.textSecondary,fontSize:14}}>{/\u2212/.source}</Text>
+<Text style={{color:C.textSecondary,fontSize:14}}>{String.fromCharCode(8722)}</Text>
 </TouchableOpacity>}
 <Text style={{fontSize:16,fontWeight:BOLD,color:clubColor(c.cat),minWidth:36,textAlign:CENTER,fontFamily:FONT}}>{c.dist}</Text>
 {onDist&&<TouchableOpacity onPress={()=>onDist(c.dist+5)} style={{width:28,height:28,borderRadius:6,borderWidth:1,borderColor:C.borderSub,backgroundColor:C.bgOverlay,alignItems:CENTER,justifyContent:CENTER}}>
@@ -172,7 +172,7 @@ return (
 <Text style={{color:C.textMuted,fontSize:14}}>{/x/.source}</Text>
 </TouchableOpacity>}
 {onActivate&&<TouchableOpacity onPress={onActivate} style={{paddingHorizontal:14,alignSelf:STRETCH,justifyContent:CENTER,borderLeftWidth:1,borderLeftColor:C.borderSub}}>
-<Text style={{color:C.gold,fontSize:11,fontFamily:FONT}}>{/+ Add/.source}</Text>
+<Text style={{color:C.gold,fontSize:11,fontFamily:FONT}}>{PLUS+/Add/.source}</Text>
 </TouchableOpacity>}
 </View>
 );
@@ -656,11 +656,11 @@ return (
 
 const TABS = [TAB_DASH, TAB_ROUND, TAB_BAG, TAB_CARD, TAB_SQUIRE];
 const TAB_ICONS = {};
-TAB_ICONS[TAB_DASH]   = /\u2b21/.source;
-TAB_ICONS[TAB_ROUND]  = /o/.source;
-TAB_ICONS[TAB_BAG]    = /\u25c9/.source;
-TAB_ICONS[TAB_CARD]   = /\u25c8/.source;
-TAB_ICONS[TAB_SQUIRE] = /\u2726/.source;
+TAB_ICONS[TAB_DASH]   = String.fromCharCode(11041);
+TAB_ICONS[TAB_ROUND]  = String.fromCharCode(9971);
+TAB_ICONS[TAB_BAG]    = String.fromCharCode(9673);
+TAB_ICONS[TAB_CARD]   = String.fromCharCode(9672);
+TAB_ICONS[TAB_SQUIRE] = String.fromCharCode(10022);
 
 export default function PillarSquire() {
 const [onboarded, setOnboarded] = useState(false);
